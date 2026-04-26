@@ -1,0 +1,180 @@
+:root {
+    --primary: #0D2F2A;
+    --white: #FFFFFF;
+    --accent: #660032;
+    --green: #67C086;
+    --black: #000000;
+    --text-light: #7E7E7E;
+}
+
+/* BASE */
+body {
+    background: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+.dashboard-header {
+    background: var(--primary);
+    color: var(--white);
+    padding: 16px 25px;
+}
+
+/* CARDS */
+.card {
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* LIST */
+.item {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+/* BUTTONS */
+.btn-primary-custom {
+    background: #0D2F2A;
+    color: #fff;
+    border-radius: 25px;
+    padding: 6px 16px;
+    border: none;
+}
+
+.btn-primary-custom:hover {
+    background: white;
+    color: black;
+}
+
+.btn-outline-custom {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+}
+
+.btn-outline-custom:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* EMPTY */
+.empty {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .card {
+        padding: 15px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* 🔥 LOGIN PAGE */
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0D2F2A, #1c4d45);
+}
+
+.login-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.login-sub {
+    font-size: 14px;
+    color: #7E7E7E;
+    margin-bottom: 20px;
+}
+
+.login-card .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.btn-login {
+    background: #0D2F2A;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px;
+    border: none;
+}
+
+.btn-login:hover {
+    background: #0b2521;
+}
+
+/* 🔥 FORM UI */
+.form-wrapper {
+    max-width: 500px;
+    margin: 60px auto;
+}
+
+.form-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.form-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.btn-save {
+    background: #0D2F2A;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px;
+    border: none;
+}
+
+.btn-save:hover {
+    background: #0b2521;
+}

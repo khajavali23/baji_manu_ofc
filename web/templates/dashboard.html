@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<style>
+body {
+    background: #f4f7fb;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.dashboard-header {
+    background: #111827;
+    color: #fff;
+    padding: 15px 30px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* Section Title */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Items */
+.item {
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #f9fafc;
+    transition: 0.3s;
+}
+
+.item:hover {
+    background: #eef2ff;
+}
+
+/* Buttons */
+.btn-primary-custom {
+    background: #4f46e5;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.btn-outline-custom {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+/* Empty Text */
+.empty {
+    color: #9ca3af;
+    font-size: 14px;
+}
+/* 🔥 PREMIUM FORM UPGRADE */
+
+.form-wrapper {
+    max-width: 520px;
+    margin: 80px auto;
+}
+
+.form-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+
+.form-card:hover {
+    transform: translateY(-2px);
+}
+
+.form-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-sub {
+    font-size: 14px;
+    color: #7E7E7E;
+    margin-bottom: 20px;
+}
+
+/* INPUT STYLE */
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #e5e5e5;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #0D2F2A;
+    box-shadow: 0 0 0 2px rgba(13,47,42,0.1);
+}
+
+/* ICON INPUT */
+.input-group-text {
+    background: #f5f5f5;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid #e5e5e5;
+}
+
+/* BUTTON */
+.btn-save {
+    background: linear-gradient(135deg, #0D2F2A, #1c4d45);
+    color: #fff;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: 500;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .form-wrapper {
+        margin: 40px 15px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="dashboard-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Admin Dashboard</h5>
+    <a href="/logout/" class="btn btn-light btn-sm">Logout</a>
+</div>
+
+<div class="container my-4">
+
+    <!-- ACTION BUTTONS -->
+    <div class="mb-4 d-flex gap-2">
+        <a href="/add-navbar/" class="btn btn-primary-custom">
+            <i class="fas fa-plus"></i> Navbar
+        </a>
+        <a href="/add-banner/" class="btn btn-primary-custom">
+            <i class="fas fa-image"></i> Banner
+        </a>
+    </div>
+
+    <div class="row">
+
+        <!-- NAVBAR SECTION -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <h6 class="section-title">Navbar Management</h6>
+
+                {% if navbars %}
+                    {% for nav in navbars %}
+                    <div class="item">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-semibold">{{ nav.name }}</span>
+
+                            <div class="d-flex gap-1">
+                                <a href="/edit-navbar/{{ nav.id }}" class="btn btn-sm btn-outline-custom">Edit</a>
+                                <a href="/delete-navbar/{{ nav.id }}" class="btn btn-sm btn-outline-custom text-danger">Delete</a>
+                                <a href="/add-submenu/{{ nav.id }}" class="btn btn-sm btn-outline-custom text-success">+ Sub</a>
+                            </div>
+                        </div>
+
+                        <!-- SUBMENUS -->
+                        {% if nav.submenus.all %}
+                        <div class="mt-2 ms-3">
+                            {% for sub in nav.submenus.all %}
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="text-muted small">• {{ sub.name }}</span>
+                                <div>
+                                    <a href="/edit-submenu/{{ sub.id }}" class="btn btn-sm btn-outline-custom">Edit</a>
+                                    <a href="/delete-submenu/{{ sub.id }}" class="btn btn-sm btn-outline-custom text-danger">Delete</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="empty ms-2 mt-1">No submenus</p>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty">No navbar items</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- BANNER SECTION -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <h6 class="section-title">Banner Management</h6>
+
+                {% if banners %}
+                    {% for b in banners %}
+                    <div class="item d-flex justify-content-between align-items-center">
+                        <span>{{ b.title }}</span>
+                        <div>
+                            <a href="/edit-banner/{{ b.id }}" class="btn btn-sm btn-outline-custom">Edit</a>
+                            <a href="/delete-banner/{{ b.id }}" class="btn btn-sm btn-outline-custom text-danger">Delete</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty">No banners</p>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
