@@ -1,66 +1,172 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 {% load static %}
-<html lang="en">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Submenu</title>
+{% block title %}
+Add Submenu
+{% endblock %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% block header_title %}
+Add Submenu
+{% endblock %}
 
-</head>
+{% block header_description %}
+Create a submenu for your website navigation
+{% endblock %}
 
-<body>
+{% block content %}
 
-<!-- HEADER -->
-<div class="dashboard-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Add Submenu</h5>
-    <a href="/dashboard/" class="btn btn-light btn-sm">Back</a>
-</div>
+<main class="dashboard-content">
 
-<div class="container">
+    <div class="form-page">
 
-    <div class="form-wrapper">
+        <div class="page-intro">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Website Management
+            </div>
+
+            <h1>
+                Create Submenu
+            </h1>
+
+            <p>
+                Add a submenu under the selected navigation item.
+            </p>
+
+        </div>
+
 
         <div class="form-card">
 
-            <!-- TITLE -->
-            <h5 class="form-title">
-                Add Submenu under: 
-                <span style="color:#0D2F2A;">{{ navbar.name }}</span>
-            </h5>
+            <div class="form-card-header">
 
-            <!-- FORM -->
-             <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-
-                <!-- NAME -->
-                <div class="mb-3">
-                    <label class="form-label">Submenu Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="e.g. Cardiology" required>
+                <div class="form-card-icon">
+                    <i class="fas fa-list"></i>
                 </div>
 
-                <!-- URL -->
-               <div class="mb-3">
-    <label class="form-label">Upload File</label>
-    <input type="file" name="file" class="form-control" required>
-    <small class="text-muted">Upload PDF, DOC, Image, etc.</small>
-</div>
+                <div>
 
-                <!-- BUTTON -->
-                <button type="submit" class="btn btn-save w-100">
-                    Save Submenu
-                </button>
+                    <h5>
+                        Submenu Details
+                    </h5>
 
-            </form>
+                    <p>
+                        Add content to the selected navigation section.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="parent-info">
+
+                <div class="parent-info-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Parent Navbar
+                    </span>
+
+                    <strong>
+                        {{ navbar.name }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-card-body">
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+
+                        <label for="submenu-name">
+                            Submenu Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-heading"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="submenu-name"
+                                name="name"
+                                class="dashboard-input"
+                                placeholder="e.g. Cardiology"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="submenu-file">
+                            Upload File
+                        </label>
+
+                        <input
+                            type="file"
+                            id="submenu-file"
+                            name="file"
+                            class="dashboard-input file-input"
+                            required
+                        >
+
+                        <small class="input-help">
+                            <i class="fas fa-file"></i>
+                            Upload PDF, DOC, image or other supported file.
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <a
+                            href="/dashboard/"
+                            class="btn-cancel"
+                        >
+                            <i class="fas fa-arrow-left"></i>
+                            Back
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn-save"
+                        >
+                            <i class="fas fa-check"></i>
+                            Save Submenu
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
+</main>
 
-</body>
-</html>
+{% endblock %}

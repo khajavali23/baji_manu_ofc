@@ -87,17 +87,149 @@
 
 
 <!-- 🔥 HERO BANNER -->
-{% if banner %}
-<div class="hero">
-    <img src="{{ banner.image.url }}" alt="banner">
+html
+<!-- =========================================
+     PREMIUM HERO SECTION
+========================================= -->
 
-    <div class="hero-content">
-        <h1>{{ banner.title }}</h1>
-        <p>{{ banner.description }}</p>
-      
+{% if banner %}
+
+<section class="premium-hero">
+
+    <!-- BACKGROUND -->
+    <div class="premium-hero-bg">
+        <img
+            src="{{ banner.image.url }}"
+            alt="{{ banner.title }}"
+        >
     </div>
-</div>
+
+    <!-- DARK / PREMIUM OVERLAY -->
+    <div class="premium-hero-overlay"></div>
+
+
+    <div class="container premium-hero-container">
+
+        <!-- =====================================
+             LEFT : BANNER CONTENT
+        ====================================== -->
+
+        <div class="hero-main-content">
+
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow-line"></span>
+                <span>Welcome</span>
+            </div>
+
+            <h1 class="hero-title">
+                {{ banner.title }}
+            </h1>
+
+            <p class="hero-description">
+                {{ banner.description }}
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             RIGHT : WEBSITE SECTION
+        ====================================== -->
+
+        {% if sections %}
+
+            {% for section in sections|slice:":1" %}
+
+            <div class="hero-section-showcase">
+
+                <div class="showcase-card">
+
+                    <!-- IMAGE -->
+
+                    <div class="showcase-image">
+
+                        <img
+                            src="{{ section.image.url }}"
+                            alt="{{ section.heading }}"
+                        >
+
+                        <div class="showcase-image-overlay"></div>
+
+                        <span class="showcase-tag">
+                            Featured
+                        </span>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="showcase-body">
+
+                        <span class="showcase-kicker">
+                            Discover More
+                        </span>
+
+                        <h2>
+                            {{ section.heading }}
+                        </h2>
+
+                        <p>
+                            {{ section.paragraph }}
+                        </p>
+
+                        <div class="showcase-footer">
+
+                            <span>
+                                Explore
+                            </span>
+
+                            <span class="showcase-arrow">
+                                <i class="fas fa-arrow-up-right-from-square"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================
+         BOTTOM HERO META
+    ====================================== -->
+
+    <div class="hero-bottom">
+
+        <div class="container hero-bottom-inner">
+
+            <span>
+                Scroll to explore
+            </span>
+
+            <span class="hero-scroll-line"></span>
+
+            <span>
+                01
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
 {% endif %}
+
+
 
 
 

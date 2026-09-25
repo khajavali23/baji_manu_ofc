@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/dashboard.css' %}"
+    >
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="sidebar-brand-icon">
+                <i class="fas fa-layer-group"></i>
+            </div>
+
+            <div class="sidebar-brand-text">
+                <strong>Admin Panel</strong>
+                <span>Website Management</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="sidebar-label">
+                Overview
+            </div>
+
+            <a
+                href="/dashboard/"
+                class="sidebar-link {% block dashboard_active %}{% endblock %}"
+            >
+                <i class="fas fa-grid-2"></i>
+                <span>Dashboard</span>
+            </a>
+
+
+            <div class="sidebar-label mt-4">
+                Website
+            </div>
+
+            <a href="/dashboard/#navbar-management" class="sidebar-link">
+                <i class="fas fa-bars"></i>
+                <span>Navbar</span>
+            </a>
+
+            <a href="/dashboard/#navbar-management" class="sidebar-link">
+                <i class="fas fa-list"></i>
+                <span>Submenus</span>
+            </a>
+
+            <a href="/dashboard/#banner-management" class="sidebar-link">
+                <i class="fas fa-images"></i>
+                <span>Banners</span>
+            </a>
+            <a href="/dashboard/#content-section-management" class="sidebar-link">
+                <i class="fas fa-layer-group"></i>
+                <span>Add Website Section</span>
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <div class="sidebar-label">
+                Create
+            </div>
+
+            <a href="/add-navbar/" class="sidebar-add">
+                <i class="fas fa-plus"></i>
+                <span>Add Navbar</span>
+            </a>
+
+            <a href="/add-banner/" class="sidebar-add">
+                <i class="fas fa-plus"></i>
+                <span>Add Banner</span>
+            </a>
+            <a href="/add-content-section/" class="sidebar-add">
+                <i class="fas fa-plus"></i>
+                <span>Add Website Section</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <a href="/logout/" class="logout-link">
+                <i class="fas fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+        <!-- HEADER -->
+        <header class="top-header">
+
+            <div class="top-header-left">
+
+                <h5>
+                    {% block header_title %}
+                        Dashboard
+                    {% endblock %}
+                </h5>
+
+                <span>
+                    {% block header_description %}
+                        Website content overview
+                    {% endblock %}
+                </span>
+
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>Administrator</strong>
+
+                    <span>
+                        Content Manager
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

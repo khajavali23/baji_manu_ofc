@@ -1,16 +1,17 @@
+
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}
-Edit Banner
+Edit Content Section
 {% endblock %}
 
 {% block header_title %}
-Edit Banner
+Edit Content Section
 {% endblock %}
 
 {% block header_description %}
-Update your existing website banner
+Update your homepage content section
 {% endblock %}
 
 {% block content %}
@@ -19,40 +20,44 @@ Update your existing website banner
 
     <div class="form-page">
 
+        <!-- PAGE INTRO -->
+
         <div class="page-intro">
 
             <div class="eyebrow">
                 <span class="eyebrow-dot"></span>
-                Banner Management
+                Website Content
             </div>
 
             <h1>
-                Edit Banner
+                Edit Content Section
             </h1>
 
             <p>
-                Update the banner title, image and description.
+                Update the heading, paragraph and image for this section.
             </p>
 
         </div>
 
+
+        <!-- FORM CARD -->
 
         <div class="form-card">
 
             <div class="form-card-header">
 
                 <div class="form-card-icon">
-                    <i class="fas fa-pen"></i>
+                    <i class="fas fa-layer-group"></i>
                 </div>
 
                 <div>
 
                     <h5>
-                        Banner Details
+                        Content Section Details
                     </h5>
 
                     <p>
-                        Update your existing banner content.
+                        Update your existing homepage content.
                     </p>
 
                 </div>
@@ -70,12 +75,12 @@ Update your existing website banner
                     {% csrf_token %}
 
 
-                    <!-- TITLE -->
+                    <!-- HEADING -->
 
                     <div class="form-group">
 
-                        <label for="banner-title">
-                            Banner Title
+                        <label for="section-heading">
+                            Section Heading
                         </label>
 
                         <div class="input-wrapper">
@@ -86,10 +91,10 @@ Update your existing website banner
 
                             <input
                                 type="text"
-                                id="banner-title"
-                                name="title"
+                                id="section-heading"
+                                name="heading"
                                 class="dashboard-input"
-                                value="{{ banner.title }}"
+                                value="{{ section.heading }}"
                                 required
                             >
 
@@ -98,9 +103,28 @@ Update your existing website banner
                     </div>
 
 
+                    <!-- PARAGRAPH -->
+
+                    <div class="form-group">
+
+                        <label for="section-paragraph">
+                            Paragraph
+                        </label>
+
+                        <textarea
+                            id="section-paragraph"
+                            name="paragraph"
+                            class="dashboard-input dashboard-textarea"
+                            rows="6"
+                            required
+                        >{{ section.paragraph }}</textarea>
+
+                    </div>
+
+
                     <!-- CURRENT IMAGE -->
 
-                    {% if banner.image %}
+                    {% if section.image %}
 
                     <div class="form-group">
 
@@ -111,13 +135,17 @@ Update your existing website banner
                         <div class="current-image-box">
 
                             <div class="current-image-label">
+
                                 <i class="fas fa-eye"></i>
-                                Current Banner
+
+                                Current Section Image
+
                             </div>
 
+
                             <img
-                                src="{{ banner.image.url }}"
-                                alt="Banner"
+                                src="{{ section.image.url }}"
+                                alt="{{ section.heading }}"
                                 class="current-banner-image"
                             >
 
@@ -128,43 +156,51 @@ Update your existing website banner
                     {% endif %}
 
 
-                    <!-- NEW IMAGE -->
+                    <!-- REPLACE IMAGE -->
 
                     <div class="form-group">
 
-                        <label for="banner-image">
+                        <label for="section-image">
                             Replace Image
                         </label>
 
                         <input
                             type="file"
-                            id="banner-image"
+                            id="section-image"
                             name="image"
                             class="dashboard-input file-input"
+                            accept="image/*"
                         >
 
                         <small class="input-help">
+
                             <i class="fas fa-circle-info"></i>
-                            Leave empty if you don't want to change the image.
+
+                            Leave empty if you don't want to change
+                            the current image.
+
                         </small>
 
                     </div>
 
 
-                    <!-- DESCRIPTION -->
+                    <!-- NEW IMAGE PREVIEW -->
 
-                    <div class="form-group">
+                    <div
+                        id="imagePreviewBox"
+                        class="section-image-preview"
+                        style="display:none;"
+                    >
 
-                        <label for="banner-description">
-                            Description
-                        </label>
+                        <div class="preview-label">
+                            New Image Preview
+                        </div>
 
-                        <textarea
-                            id="banner-description"
-                            name="description"
-                            class="dashboard-input dashboard-textarea"
-                            rows="5"
-                        >{{ banner.description }}</textarea>
+                        <img
+                            id="imagePreview"
+                            src=""
+                            alt="New image preview"
+                        >
 
                     </div>
 
@@ -174,28 +210,38 @@ Update your existing website banner
                     <div class="form-actions">
 
                         <a
-                            href="/dashboard/"
+                            href="{% url 'dashboard' %}#content-section-management"
                             class="btn-cancel"
                         >
                             <i class="fas fa-arrow-left"></i>
                             Cancel
                         </a>
 
+
                         <button
                             type="submit"
                             class="btn-save"
                         >
+
                             <i class="fas fa-check"></i>
-                            Update Banner
+
+                            Update Section
+
                         </button>
 
                     </div>
 
 
+                    <!-- FOOTER -->
+
                     <div class="form-footer">
+
                         <i class="fas fa-shield-halved"></i>
+
                         Changes will be saved to the website.
+
                     </div>
+
 
                 </form>
 
@@ -207,4 +253,43 @@ Update your existing website banner
 
 </main>
 
+
+<script>
+
+const imageInput = document.getElementById("section-image");
+
+const previewBox = document.getElementById("imagePreviewBox");
+
+const previewImage = document.getElementById("imagePreview");
+
+
+imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (file) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            previewImage.src = event.target.result;
+
+            previewBox.style.display = "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    } else {
+
+        previewBox.style.display = "none";
+
+    }
+
+});
+
+</script>
+
 {% endblock %}
+

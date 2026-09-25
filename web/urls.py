@@ -22,6 +22,23 @@ urlpatterns = [
     path('add-submenu/<int:nav_id>/', views.add_submenu, name='add_submenu'),
     path('edit-submenu/<int:id>/', views.edit_submenu, name='edit_submenu'),
     path('delete-submenu/<int:id>/', views.delete_submenu, name='delete_submenu'),
+    path(
+    'add-content-section/',
+    views.add_content_section,
+    name='add_content_section'
+),
+
+path(
+    'edit-content-section/<int:id>/',
+    views.edit_content_section,
+    name='edit_content_section'
+),
+
+path(
+    'delete-content-section/<int:id>/',
+    views.delete_content_section,
+    name='delete_content_section'
+),
 ]
 
 # MEDIA FILES (must be separate)

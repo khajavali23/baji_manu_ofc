@@ -1,0 +1,227 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Add Website Section
+{% endblock %}
+
+{% block header_title %}
+Add Website Section
+{% endblock %}
+
+{% block header_description %}
+Create a new homepage content section
+{% endblock %}
+
+{% block content %}
+
+<main class="dashboard-content">
+
+    <div class="form-page">
+
+        <!-- PAGE INTRO -->
+        <div class="page-intro">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Website Content
+            </div>
+
+            <h1>
+                Add Website Section
+            </h1>
+
+            <p>
+                Add a heading, paragraph and image for your website homepage.
+            </p>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+        <div class="form-card">
+
+            <!-- CARD HEADER -->
+            <div class="form-card-header">
+
+                <div class="form-card-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+
+                <div>
+
+                    <h5>
+                        Section Details
+                    </h5>
+
+                    <p>
+                        Create your homepage content section.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM BODY -->
+            <div class="form-card-body">
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- HEADING -->
+                    <div class="form-group">
+
+                        <label for="section-heading">
+                            Section Heading
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-heading"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="section-heading"
+                                name="heading"
+                                class="dashboard-input"
+                                placeholder="Enter section heading"
+                                required
+                            >
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            Enter the main heading you want to display on the homepage.
+                        </small>
+
+                    </div>
+
+
+                    <!-- PARAGRAPH -->
+                    <div class="form-group">
+
+                        <label for="section-paragraph">
+                            Section Paragraph
+                        </label>
+
+                        <div class="textarea-wrapper">
+
+                            <span class="textarea-icon">
+                                <i class="fas fa-align-left"></i>
+                            </span>
+
+                            <textarea
+                                id="section-paragraph"
+                                name="paragraph"
+                                class="dashboard-input dashboard-textarea"
+                                rows="6"
+                                placeholder="Write your section description..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            Add the supporting content that will appear below the heading.
+                        </small>
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+                    <div class="form-group">
+
+                        <label for="section-image">
+                            Section Image
+                        </label>
+
+                        <div class="file-upload-box">
+
+                            <div class="file-upload-icon">
+                                <i class="fas fa-cloud-arrow-up"></i>
+                            </div>
+
+                            <div class="file-upload-content">
+
+                                <strong>
+                                    Upload Section Image
+                                </strong>
+
+                                <span>
+                                    Choose a high-quality image for this section
+                                </span>
+
+                            </div>
+
+                            <input
+                                type="file"
+                                id="section-image"
+                                name="image"
+                                accept="image/*"
+                                required
+                            >
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            Recommended: JPG, JPEG or PNG image.
+                        </small>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+                    <div class="form-actions">
+
+                        <a
+                            href="/dashboard/"
+                            class="btn-cancel"
+                        >
+                            <i class="fas fa-arrow-left"></i>
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn-save"
+                        >
+                            <i class="fas fa-check"></i>
+                            Create Section
+                        </button>
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+                    <div class="form-footer">
+
+                        <i class="fas fa-shield-halved"></i>
+
+                        Your content will be added to the website homepage.
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}
+
