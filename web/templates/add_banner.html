@@ -62,7 +62,7 @@ Create a new website banner
 
             <div class="form-card-body">
 
-                <form
+                  <form
                     method="POST"
                     enctype="multipart/form-data"
                 >
@@ -70,31 +70,104 @@ Create a new website banner
                     {% csrf_token %}
 
 
-                    <div class="form-group">
+                   <!-- =====================================
+     BANNER BUTTONS
+====================================== -->
 
-                        <label for="banner-title">
-                            Banner Title
-                        </label>
+<div class="form-group">
 
-                        <div class="input-wrapper">
+    <label>
+        Banner Buttons
+    </label>
 
-                            <span class="input-icon">
-                                <i class="fas fa-heading"></i>
-                            </span>
+    <small class="input-help">
+        <i class="fas fa-circle-info"></i>
+        Add multiple buttons. Each button can open a page, URL, email or document.
+    </small>
 
-                            <input
-                                type="text"
-                                id="banner-title"
-                                name="title"
-                                class="dashboard-input"
-                                placeholder="Enter banner title"
-                                required
-                            >
+</div>
 
-                        </div>
 
-                    </div>
+<div id="banner-buttons-container">
 
+    <div class="banner-button-row">
+
+        <div class="form-group">
+
+            <label>
+                Button Text
+            </label>
+
+            <input
+                type="text"
+                name="button_texts[]"
+                class="dashboard-input"
+                placeholder="Example: Learn More"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Button Type
+            </label>
+
+            <select
+                name="button_types[]"
+                class="dashboard-input"
+            >
+
+                <option value="url">
+                    External URL
+                </option>
+
+                <option value="page">
+                    Website Page
+                </option>
+
+                <option value="email">
+                    Email
+                </option>
+
+                <option value="document">
+                    Document
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                URL / Page / Email
+            </label>
+
+            <input
+                type="text"
+                name="button_values[]"
+                class="dashboard-input"
+                placeholder="Enter destination"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<button
+    type="button"
+    id="add-banner-button"
+    class="btn-save btn_banner"
+>
+    <i class="fas fa-plus"></i>
+    Add Another Button
+</button>
 
                     <div class="form-group">
 
@@ -139,6 +212,74 @@ Create a new website banner
                     </div>
 
 
+                    <!-- =====================================
+                         BUTTON TEXT
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="banner-button-text">
+                            Button Text
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-hand-pointer"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="banner-button-text"
+                                name="button_text"
+                                class="dashboard-input"
+                                placeholder="Example: Contact Us"
+                            >
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            This text will appear on the banner button.
+                        </small>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         BUTTON EMAIL
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="banner-button-email">
+                            Button Email
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+                            <input
+                                type="email"
+                                id="banner-button-email"
+                                name="button_email"
+                                class="dashboard-input"
+                                placeholder="Example: info@example.com"
+                            >
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            When visitors click the button, their email app will open with this address.
+                        </small>
+
+                    </div>
+
+
                     <div class="form-actions">
 
                         <a
@@ -168,5 +309,496 @@ Create a new website banner
     </div>
 
 </main>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const container =
+        document.getElementById(
+            "banner-buttons-container"
+        );
+
+    const addButton =
+        document.getElementById(
+            "add-banner-button"
+        );
+
+
+    if (!container || !addButton) {
+        return;
+    }
+
+
+    /* =========================================
+       UPDATE BUTTON TYPE FIELDS
+    ========================================== */
+
+    function updateButtonFields(row) {
+
+        const type =
+            row.querySelector(
+                ".banner-button-type"
+            ).value;
+
+
+        const pageField =
+            row.querySelector(
+                ".button-page-field"
+            );
+
+        const urlField =
+            row.querySelector(
+                ".button-url-field"
+            );
+
+        const emailField =
+            row.querySelector(
+                ".button-email-field"
+            );
+
+        const documentField =
+            row.querySelector(
+                ".button-document-field"
+            );
+
+
+        pageField.style.display = "none";
+        urlField.style.display = "none";
+        emailField.style.display = "none";
+        documentField.style.display = "none";
+
+
+        if (type === "page") {
+
+            pageField.style.display =
+                "block";
+
+        }
+
+        else if (type === "url") {
+
+            urlField.style.display =
+                "block";
+
+        }
+
+        else if (type === "email") {
+
+            emailField.style.display =
+                "block";
+
+        }
+
+        else if (type === "document") {
+
+            documentField.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    /* =========================================
+       NUMBER BUTTONS
+    ========================================== */
+
+    function updateButtonNumbers() {
+
+        const rows =
+            container.querySelectorAll(
+                ".banner-button-row"
+            );
+
+
+        rows.forEach(
+            function (row, index) {
+
+                const title =
+                    row.querySelector(
+                        ".banner-button-number"
+                    );
+
+
+                if (title) {
+
+                    title.textContent =
+                        `Button ${index + 1}`;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       INITIAL TYPE
+    ========================================== */
+
+    const firstRow =
+        container.querySelector(
+            ".banner-button-row"
+        );
+
+
+    if (firstRow) {
+
+        const typeSelect =
+            firstRow.querySelector(
+                ".banner-button-type"
+            );
+
+
+        if (typeSelect) {
+
+            updateButtonFields(
+                firstRow
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       TYPE CHANGE
+    ========================================== */
+
+    container.addEventListener(
+        "change",
+        function (event) {
+
+            if (
+                event.target.classList.contains(
+                    "banner-button-type"
+                )
+            ) {
+
+                const row =
+                    event.target.closest(
+                        ".banner-button-row"
+                    );
+
+
+                if (row) {
+
+                    updateButtonFields(
+                        row
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       ADD BUTTON
+    ========================================== */
+
+    addButton.addEventListener(
+        "click",
+        function () {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "banner-button-row";
+
+
+            row.style.cssText = `
+                border:1px solid #e5e7eb;
+                border-radius:12px;
+                padding:20px;
+                margin-bottom:15px;
+            `;
+
+
+            row.innerHTML = `
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        margin-bottom:15px;
+                    "
+                >
+
+                    <strong>
+
+                        <i class="fas fa-hand-pointer"></i>
+
+                        <span class="banner-button-number">
+                            Button
+                        </span>
+
+                    </strong>
+
+
+                    <button
+                        type="button"
+                        class="btn-remove-banner-button"
+                        style="
+                            border:0;
+                            background:transparent;
+                            cursor:pointer;
+                            color:#dc3545;
+                        "
+                    >
+
+                        <i class="fas fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Button Text
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <i class="fas fa-heading"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            name="button_texts"
+                            class="dashboard-input"
+                            placeholder="Example: Learn More"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Button Type
+                    </label>
+
+                    <select
+                        name="button_types"
+                        class="dashboard-input banner-button-type"
+                    >
+
+                        <option value="page">
+                            Website Page
+                        </option>
+
+                        <option value="url">
+                            External URL
+                        </option>
+
+                        <option value="email">
+                            Email
+                        </option>
+
+                        <option value="document">
+                            Document
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="button-field button-page-field">
+
+                    <label>
+                        Page URL
+                    </label>
+
+                    <input
+                        type="text"
+                        name="button_page_urls"
+                        class="dashboard-input"
+                        placeholder="/about/"
+                    >
+
+                </div>
+
+
+                <div
+                    class="button-field button-url-field"
+                    style="display:none;"
+                >
+
+                    <label>
+                        External URL
+                    </label>
+
+                    <input
+                        type="url"
+                        name="button_urls"
+                        class="dashboard-input"
+                        placeholder="https://example.com"
+                    >
+
+                </div>
+
+
+                <div
+                    class="button-field button-email-field"
+                    style="display:none;"
+                >
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        name="button_emails"
+                        class="dashboard-input"
+                        placeholder="info@example.com"
+                    >
+
+                </div>
+
+
+                <div
+                    class="button-field button-document-field"
+                    style="display:none;"
+                >
+
+                    <label>
+                        Upload Document
+                    </label>
+
+                    <input
+                        type="file"
+                        name="button_documents"
+                        class="dashboard-input file-input"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Order
+                    </label>
+
+                    <input
+                        type="number"
+                        name="button_orders"
+                        class="dashboard-input"
+                        value="1"
+                        min="1"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="button_active"
+                            value="1"
+                            checked
+                        >
+
+                        Active
+
+                    </label>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                row
+            );
+
+
+            updateButtonNumbers();
+
+            updateButtonFields(
+                row
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       REMOVE BUTTON
+    ========================================== */
+
+    container.addEventListener(
+        "click",
+        function (event) {
+
+            const removeButton =
+                event.target.closest(
+                    ".btn-remove-banner-button"
+                );
+
+
+            if (!removeButton) {
+                return;
+            }
+
+
+            const rows =
+                container.querySelectorAll(
+                    ".banner-button-row"
+                );
+
+
+            if (rows.length <= 1) {
+
+                alert(
+                    "At least one button row must remain."
+                );
+
+                return;
+
+            }
+
+
+            const row =
+                removeButton.closest(
+                    ".banner-button-row"
+                );
+
+
+            if (row) {
+
+                row.remove();
+
+                updateButtonNumbers();
+
+            }
+
+        }
+    );
+
+});
+
+</script>
 
 {% endblock %}

@@ -39,6 +39,48 @@ path(
     views.delete_content_section,
     name='delete_content_section'
 ),
+path(
+    "submenu-content/<int:submenu_id>/",
+    views.submenu_content,
+    name="submenu_content"
+),
+path(
+        "document/<int:id>/",
+        views.view_submenu_document,
+        name="view_submenu_document"
+    ),
+    path(
+        "navbar-document/<int:id>/",
+        views.view_navbar_document,
+        name="view_navbar_document"
+    ),
+     # Navbar Content
+    path(
+        'navbar-content/<int:navbar_id>/',
+        views.navbar_content,
+        name='navbar_content',
+    ),
+   path(
+    "submenu-document/<int:document_id>/",
+    views.view_submenu_document,
+    name="view_submenu_document"
+),
+
+path(
+    "navbar-document/<int:document_id>/",
+    views.view_navbar_document,
+    name="view_navbar_document"
+),
+path(
+    "delete-banner-button/<int:button_id>/",
+    views.delete_banner_button,
+    name="delete_banner_button"
+),
+path(
+    "delete-submenu-document/<int:document_id>/",
+    views.delete_submenu_document,
+    name="delete_submenu_document"
+),
 ]
 
 # MEDIA FILES (must be separate)

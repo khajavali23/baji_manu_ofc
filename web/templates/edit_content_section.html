@@ -1,17 +1,16 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}
-Edit Content Section
+Add Website Section
 {% endblock %}
 
 {% block header_title %}
-Edit Content Section
+Add Website Section
 {% endblock %}
 
 {% block header_description %}
-Update your homepage content section
+Create a new homepage content section
 {% endblock %}
 
 {% block content %}
@@ -21,7 +20,6 @@ Update your homepage content section
     <div class="form-page">
 
         <!-- PAGE INTRO -->
-
         <div class="page-intro">
 
             <div class="eyebrow">
@@ -30,20 +28,20 @@ Update your homepage content section
             </div>
 
             <h1>
-                Edit Content Section
+                Add Website Section
             </h1>
 
             <p>
-                Update the heading, paragraph and image for this section.
+                Add a heading, paragraph, image and link for your website homepage.
             </p>
 
         </div>
 
 
         <!-- FORM CARD -->
-
         <div class="form-card">
 
+            <!-- CARD HEADER -->
             <div class="form-card-header">
 
                 <div class="form-card-icon">
@@ -53,11 +51,11 @@ Update your homepage content section
                 <div>
 
                     <h5>
-                        Content Section Details
+                        Section Details
                     </h5>
 
                     <p>
-                        Update your existing homepage content.
+                        Create your homepage content section.
                     </p>
 
                 </div>
@@ -65,6 +63,7 @@ Update your homepage content section
             </div>
 
 
+            <!-- FORM BODY -->
             <div class="form-card-body">
 
                 <form
@@ -76,7 +75,6 @@ Update your homepage content section
 
 
                     <!-- HEADING -->
-
                     <div class="form-group">
 
                         <label for="section-heading">
@@ -89,159 +87,173 @@ Update your homepage content section
                                 <i class="fas fa-heading"></i>
                             </span>
 
-                            <input
+                           <input
                                 type="text"
                                 id="section-heading"
                                 name="heading"
                                 class="dashboard-input"
                                 value="{{ section.heading }}"
+                                placeholder="Enter section heading"
                                 required
                             >
 
                         </div>
 
-                    </div>
-
-
-                    <!-- PARAGRAPH -->
-
-                    <div class="form-group">
-
-                        <label for="section-paragraph">
-                            Paragraph
-                        </label>
-
-                        <textarea
-                            id="section-paragraph"
-                            name="paragraph"
-                            class="dashboard-input dashboard-textarea"
-                            rows="6"
-                            required
-                        >{{ section.paragraph }}</textarea>
-
-                    </div>
-
-
-                    <!-- CURRENT IMAGE -->
-
-                    {% if section.image %}
-
-                    <div class="form-group">
-
-                        <label>
-                            Current Image
-                        </label>
-
-                        <div class="current-image-box">
-
-                            <div class="current-image-label">
-
-                                <i class="fas fa-eye"></i>
-
-                                Current Section Image
-
-                            </div>
-
-
-                            <img
-                                src="{{ section.image.url }}"
-                                alt="{{ section.heading }}"
-                                class="current-banner-image"
-                            >
-
-                        </div>
-
-                    </div>
-
-                    {% endif %}
-
-
-                    <!-- REPLACE IMAGE -->
-
-                    <div class="form-group">
-
-                        <label for="section-image">
-                            Replace Image
-                        </label>
-
-                        <input
-                            type="file"
-                            id="section-image"
-                            name="image"
-                            class="dashboard-input file-input"
-                            accept="image/*"
-                        >
-
                         <small class="input-help">
-
                             <i class="fas fa-circle-info"></i>
-
-                            Leave empty if you don't want to change
-                            the current image.
-
+                            Enter the main heading you want to display on the homepage.
                         </small>
 
                     </div>
 
 
-                    <!-- NEW IMAGE PREVIEW -->
+                    <!-- PARAGRAPH -->
+                    <div class="form-group">
 
-                    <div
-                        id="imagePreviewBox"
-                        class="section-image-preview"
-                        style="display:none;"
-                    >
+                        <label for="section-paragraph">
+                            Section Paragraph
+                        </label>
 
-                        <div class="preview-label">
-                            New Image Preview
+                        <div class="textarea-wrapper">
+
+                            <span class="textarea-icon">
+                                <i class="fas fa-align-left"></i>
+                            </span>
+
+                            <textarea
+    id="section-paragraph"
+    name="paragraph"
+    class="dashboard-input dashboard-textarea"
+    rows="6"
+    placeholder="Write your section description..."
+    required
+>{{ section.paragraph }}</textarea>
+
                         </div>
 
-                        <img
-                            id="imagePreview"
-                            src=""
-                            alt="New image preview"
-                        >
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            Add the supporting content that will appear below the heading.
+                        </small>
+
+                    </div>
+
+
+                 {% if section.image %}
+
+<div class="form-group">
+
+    <label>
+        Current Image
+    </label>
+
+    <div class="current-image-box">
+
+        <div class="current-image-label">
+            <i class="fas fa-eye"></i>
+            Current Section Image
+        </div>
+
+        <img
+            src="{{ section.image.url }}"
+            alt="{{ section.heading }}"
+            class="current-banner-image"
+        >
+
+    </div>
+
+</div>
+
+{% endif %}
+<div class="form-group">
+
+    <label for="section-image">
+        Replace Image
+    </label>
+
+    <input
+        type="file"
+        id="section-image"
+        name="image"
+        class="dashboard-input file-input"
+        accept="image/*"
+    >
+
+    <small class="input-help">
+        <i class="fas fa-circle-info"></i>
+        Leave empty if you don't want to change the image.
+    </small>
+
+</div>
+                    
+ <!-- SECTION LINK -->
+
+
+                    <!-- =====================================
+                         SECTION LINK
+                    ====================================== -->
+
+                    <div class="form-group">
+
+                        <label for="section-link">
+                            Section Link
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-link"></i>
+                            </span>
+
+                            <input
+    type="url"
+    id="section-link"
+    name="link"
+    class="dashboard-input"
+    value="{{ section.link|default:'' }}"
+    placeholder="https://example.com/page/"
+>
+
+                        </div>
+
+                        <small class="input-help">
+                            <i class="fas fa-circle-info"></i>
+                            Enter the page URL visitors should open when they click the section button or link.
+                        </small>
 
                     </div>
 
 
                     <!-- ACTIONS -->
-
                     <div class="form-actions">
 
                         <a
-                            href="{% url 'dashboard' %}#content-section-management"
+                            href="/dashboard/"
                             class="btn-cancel"
                         >
                             <i class="fas fa-arrow-left"></i>
                             Cancel
                         </a>
 
-
                         <button
                             type="submit"
                             class="btn-save"
                         >
-
                             <i class="fas fa-check"></i>
-
-                            Update Section
-
+                            Create Section
                         </button>
 
                     </div>
 
 
                     <!-- FOOTER -->
-
                     <div class="form-footer">
 
                         <i class="fas fa-shield-halved"></i>
 
-                        Changes will be saved to the website.
+                        Your content will be added to the website homepage.
 
                     </div>
-
 
                 </form>
 
@@ -253,43 +265,4 @@ Update your homepage content section
 
 </main>
 
-
-<script>
-
-const imageInput = document.getElementById("section-image");
-
-const previewBox = document.getElementById("imagePreviewBox");
-
-const previewImage = document.getElementById("imagePreview");
-
-
-imageInput.addEventListener("change", function () {
-
-    const file = this.files[0];
-
-    if (file) {
-
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-
-            previewImage.src = event.target.result;
-
-            previewBox.style.display = "block";
-
-        };
-
-        reader.readAsDataURL(file);
-
-    } else {
-
-        previewBox.style.display = "none";
-
-    }
-
-});
-
-</script>
-
 {% endblock %}
-

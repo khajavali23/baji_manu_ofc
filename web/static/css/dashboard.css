@@ -1723,6 +1723,8 @@ font-weight: 650;
 cursor: pointer;
 
 transition: all 0.2s ease;
+margin-top: 10px;
+    margin-bottom: 10px;
 
 
 }
@@ -3139,6 +3141,245 @@ MOBILE
     .form-actions button {
         width: 100%;
         justify-content: center;
+    }
+
+}
+.btn_banner{
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
+.btn-remove-banner-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: fit-content;
+
+    padding: 11px 17px;
+
+    border: 1px solid rgba(190, 55, 55, 0.22);
+    border-radius: 10px;
+
+    background: #fffafa;
+    color: #b42323;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.remove-button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    background: rgba(180, 35, 35, 0.08);
+
+    font-size: 13px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.remove-button-text {
+    line-height: 1;
+}
+
+.btn-remove-banner-button:hover {
+    background: #fff2f2;
+
+    border-color: rgba(180, 35, 35, 0.38);
+
+    color: #8f1d1d;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(180, 35, 35, 0.08);
+}
+
+.btn-remove-banner-button:hover .remove-button-icon {
+    background: rgba(180, 35, 35, 0.14);
+}
+
+.btn-remove-banner-button:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   DOCUMENT CARD
+========================================= */
+
+.document-card {
+    border: 1px solid #e7e9ee;
+    background: #ffffff;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.document-card:hover {
+    border-color: #d5d9e2;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.document-card-inner {
+    min-height: 78px;
+    padding: 14px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+/* =========================================
+   DOCUMENT INFO
+========================================= */
+
+.document-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.document-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #f5f7fa;
+    color: #475467;
+
+    font-size: 18px;
+}
+
+.document-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.document-name {
+    color: #1d2939;
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.document-label {
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.document-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.document-action {
+    height: 34px;
+    padding: 0 11px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+
+/* VIEW */
+
+.document-action-view {
+    color: #344054;
+    background: #f8fafc;
+    border: 1px solid #e4e7ec;
+}
+
+.document-action-view:hover {
+    color: #101828;
+    background: #f2f4f7;
+    border-color: #d0d5dd;
+}
+
+
+/* REMOVE */
+
+.document-action-delete {
+    color: #b42318;
+    background: #fff5f4;
+    border: 1px solid #f4c7c3;
+}
+
+.document-action-delete:hover {
+    color: #ffffff;
+    background: #c62828;
+    border-color: #c62828;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .document-card-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .document-actions {
+        width: 100%;
+    }
+
+    .document-action {
+        flex: 1;
     }
 
 }

@@ -21,29 +21,29 @@ Website content overview
 
 <main class="dashboard-content">
 
-
 <!-- =========================================
      PAGE INTRO
 ========================================== -->
 
 <div class="page-intro">
 
-    <div class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Administration
-    </div>
 
-    <h1>
-        Welcome to your dashboard
-    </h1>
-
-    <p>
-        Manage your website navigation, submenus, banners
-        and homepage content from one place.
-    </p>
-
+<div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    Administration
 </div>
 
+<h1>
+    Welcome to your dashboard
+</h1>
+
+<p>
+    Manage your website navigation, submenus, banners
+    and homepage content from one place.
+</p>
+
+
+</div>
 
 <!-- =========================================
      STATISTICS
@@ -51,107 +51,108 @@ Website content overview
 
 <div class="stats-grid">
 
-    <!-- NAVBAR COUNT -->
 
-    <div class="stat-card">
+<!-- NAVBAR COUNT -->
 
-        <div class="stat-top">
+<div class="stat-card">
 
-            <div class="stat-icon">
-                <i class="fas fa-bars"></i>
-            </div>
+    <div class="stat-top">
 
+        <div class="stat-icon">
+            <i class="fas fa-bars"></i>
         </div>
-
-        <div class="stat-number">
-            {{ navbars|length }}
-        </div>
-
-        <div class="stat-label">
-            Total Navbar Items
-        </div>
-
-        <div class="stat-decoration"></div>
 
     </div>
 
-
-    <!-- SUBMENU COUNT -->
-
-    <div class="stat-card submenu-stat">
-
-        <div class="stat-top">
-
-            <div class="stat-icon">
-                <i class="fas fa-list"></i>
-            </div>
-
-        </div>
-
-        <div class="stat-number">
-            {{ submenus|length }}
-        </div>
-
-        <div class="stat-label">
-            Total Submenus
-        </div>
-
-        <div class="stat-decoration"></div>
-
+    <div class="stat-number">
+        {{ navbars|length }}
     </div>
 
-
-    <!-- BANNER COUNT -->
-
-    <div class="stat-card banner-stat">
-
-        <div class="stat-top">
-
-            <div class="stat-icon">
-                <i class="fas fa-images"></i>
-            </div>
-
-        </div>
-
-        <div class="stat-number">
-            {{ banners|length }}
-        </div>
-
-        <div class="stat-label">
-            Total Banners
-        </div>
-
-        <div class="stat-decoration"></div>
-
+    <div class="stat-label">
+        Total Navbar Items
     </div>
 
-
-    <!-- SECTION COUNT -->
-
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-icon">
-                <i class="fas fa-layer-group"></i>
-            </div>
-
-        </div>
-
-        <div class="stat-number">
-            {{ sections|length }}
-        </div>
-
-        <div class="stat-label">
-            Website Sections
-        </div>
-
-        <div class="stat-decoration"></div>
-
-    </div>
+    <div class="stat-decoration"></div>
 
 </div>
 
+
+<!-- SUBMENU COUNT -->
+
+<div class="stat-card submenu-stat">
+
+    <div class="stat-top">
+
+        <div class="stat-icon">
+            <i class="fas fa-list"></i>
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        {{ submenus|length }}
+    </div>
+
+    <div class="stat-label">
+        Total Submenus
+    </div>
+
+    <div class="stat-decoration"></div>
+
+</div>
+
+
+<!-- BANNER COUNT -->
+
+<div class="stat-card banner-stat">
+
+    <div class="stat-top">
+
+        <div class="stat-icon">
+            <i class="fas fa-images"></i>
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        {{ banners|length }}
+    </div>
+
+    <div class="stat-label">
+        Total Banners
+    </div>
+
+    <div class="stat-decoration"></div>
+
+</div>
+
+
+<!-- SECTION COUNT -->
+
+<div class="stat-card">
+
+    <div class="stat-top">
+
+        <div class="stat-icon">
+            <i class="fas fa-layer-group"></i>
+        </div>
+
+    </div>
+
+    <div class="stat-number">
+        {{ sections|length }}
+    </div>
+
+    <div class="stat-label">
+        Website Sections
+    </div>
+
+    <div class="stat-decoration"></div>
+
+</div>
+
+
+</div>
 
 <!-- =========================================
      MANAGEMENT HEADER
@@ -159,84 +160,157 @@ Website content overview
 
 <div class="section-header">
 
-    <div>
 
-        <h5>
-            Website Management
-        </h5>
+<div>
 
-        <p>
-            Manage your existing website content
-        </p>
+    <h5>
+        Website Management
+    </h5>
 
-    </div>
+    <p>
+        Manage your existing website content
+    </p>
 
 </div>
 
 
+</div>
+
 <div class="row g-3">
 
 
-    <!-- =====================================
-         NAVBAR MANAGEMENT
-    ====================================== -->
+<!-- =====================================
+     NAVBAR MANAGEMENT
+====================================== -->
 
-    <div
-        class="col-lg-7"
-        id="navbar-management"
-    >
+<div
+    class="col-lg-7"
+    id="navbar-management"
+>
 
-        <div class="management-card">
+    <div class="management-card">
 
-            <div class="management-header">
+        <div class="management-header">
 
-                <div class="management-title">
+            <div class="management-title">
 
-                    <div class="management-icon">
-                        <i class="fas fa-bars"></i>
-                    </div>
-
-                    <div>
-
-                        <h6>
-                            Navbar Management
-                        </h6>
-
-                        <span>
-                            Navigation and submenu structure
-                        </span>
-
-                    </div>
-
+                <div class="management-icon">
+                    <i class="fas fa-bars"></i>
                 </div>
 
-                <div class="management-badge">
-                    Navigation
+                <div>
+
+                    <h6>
+                        Navbar Management
+                    </h6>
+
+                    <span>
+                        Navigation and submenu structure
+                    </span>
+
                 </div>
 
             </div>
 
+            <div class="management-badge">
+                Navigation
+            </div>
 
-            <div class="management-body">
+        </div>
 
-                {% if navbars %}
 
-                    {% for nav in navbars %}
+        <div class="management-body">
 
-                    <div class="nav-item-box">
+            {% if navbars %}
 
-                        <!-- NAVBAR ROW -->
+                {% for nav in navbars %}
 
-                        <div class="nav-main-row">
+                <div class="nav-item-box">
 
-                            <div class="nav-name">
+                    <!-- NAVBAR ROW -->
 
-                                <div class="nav-name-icon">
-                                    <i class="fas fa-link"></i>
-                                </div>
+                    <div class="nav-main-row">
+
+                        <div class="nav-name">
+
+                            <div class="nav-name-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+
+                            <span>
+                                {{ nav.name }}
+                            </span>
+
+                        </div>
+
+
+                      <div class="actions">
+
+    <!-- NAVBAR CONTENT -->
+
+    <a
+        href="{% url 'navbar_content' navbar_id=nav.id %}"
+        class="action-btn sub"
+    >
+        <i class="fas fa-file-lines"></i>
+        <span>Content</span>
+    </a>
+
+
+    <!-- EDIT NAVBAR -->
+
+    <a
+        href="/edit-navbar/{{ nav.id }}"
+        class="action-btn"
+    >
+        <i class="fas fa-pen"></i>
+        <span>Edit</span>
+    </a>
+
+
+    <!-- DELETE NAVBAR -->
+
+    <a
+        href="/delete-navbar/{{ nav.id }}"
+        class="action-btn delete"
+        onclick="return confirm('Are you sure you want to delete this navbar?');"
+    >
+        <i class="fas fa-trash"></i>
+        <span>Delete</span>
+    </a>
+
+
+    <!-- ADD SUBMENU -->
+
+    <a
+        href="/add-submenu/{{ nav.id }}"
+        class="action-btn sub"
+    >
+        <i class="fas fa-plus"></i>
+        <span>Sub</span>
+    </a>
+
+</div>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         SUBMENUS
+                    ====================================== -->
+
+                    <div class="submenu-list">
+
+                        {% for sub in nav.submenus.all %}
+
+                        <div class="submenu-row">
+
+                            <div class="submenu-name">
+
+                                <span class="submenu-dot"></span>
 
                                 <span>
-                                    {{ nav.name }}
+                                    {{ sub.name }}
                                 </span>
 
                             </div>
@@ -244,342 +318,78 @@ Website content overview
 
                             <div class="actions">
 
+                                <!-- SUBMENU CONTENT -->
+
                                 <a
-                                    href="/edit-navbar/{{ nav.id }}"
+                                    href="{% url 'submenu_content' submenu_id=sub.id %}"
+                                    class="action-btn sub"
+                                >
+                                    <i class="fas fa-file-lines"></i>
+                                    <span>Content</span>
+                                </a>
+
+
+                                <!-- EDIT SUBMENU -->
+
+                                <a
+                                    href="/edit-submenu/{{ sub.id }}"
                                     class="action-btn"
                                 >
                                     <i class="fas fa-pen"></i>
                                     <span>Edit</span>
                                 </a>
 
+
+                                <!-- DELETE SUBMENU -->
+
                                 <a
-                                    href="/delete-navbar/{{ nav.id }}"
+                                    href="/delete-submenu/{{ sub.id }}"
                                     class="action-btn delete"
-                                    onclick="return confirm('Are you sure you want to delete this navbar?');"
+                                    onclick="return confirm('Are you sure you want to delete this submenu?');"
                                 >
                                     <i class="fas fa-trash"></i>
                                     <span>Delete</span>
                                 </a>
 
-                                <a
-                                    href="/add-submenu/{{ nav.id }}"
-                                    class="action-btn sub"
-                                >
-                                    <i class="fas fa-plus"></i>
-                                    <span>Sub</span>
-                                </a>
-
                             </div>
 
                         </div>
 
+                        {% empty %}
 
-                        <!-- SUBMENUS -->
+                        <div class="submenu-name">
 
-                        <div class="submenu-list">
-
-                            {% for sub in nav.submenus.all %}
-
-                            <div class="submenu-row">
-
-                                <div class="submenu-name">
-
-                                    <span class="submenu-dot"></span>
-
-                                    <span>
-                                        {{ sub.name }}
-                                    </span>
-
-                                </div>
-
-
-                                <div class="actions">
-
-                                    <a
-                                        href="/edit-submenu/{{ sub.id }}"
-                                        class="action-btn"
-                                    >
-                                        <i class="fas fa-pen"></i>
-                                        <span>Edit</span>
-                                    </a>
-
-                                    <a
-                                        href="/delete-submenu/{{ sub.id }}"
-                                        class="action-btn delete"
-                                        onclick="return confirm('Are you sure you want to delete this submenu?');"
-                                    >
-                                        <i class="fas fa-trash"></i>
-                                        <span>Delete</span>
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                            {% empty %}
-
-                            <div class="submenu-name">
-
-                                <span class="submenu-dot"></span>
-
-                                <span>
-                                    No submenus
-                                </span>
-
-                            </div>
-
-                            {% endfor %}
-
-                        </div>
-
-                    </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        <i class="fas fa-bars"></i>
-                    </div>
-
-                    <p>
-                        No navbar items available
-                    </p>
-
-                </div>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================
-         BANNER MANAGEMENT
-    ====================================== -->
-
-    <div
-        class="col-lg-5"
-        id="banner-management"
-    >
-
-        <div class="management-card">
-
-            <div class="management-header">
-
-                <div class="management-title">
-
-                    <div class="management-icon">
-                        <i class="fas fa-images"></i>
-                    </div>
-
-                    <div>
-
-                        <h6>
-                            Banner Management
-                        </h6>
-
-                        <span>
-                            Website banner content
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="management-badge">
-                    Banners
-                </div>
-
-            </div>
-
-
-            <div class="management-body">
-
-                {% if banners %}
-
-                    {% for b in banners %}
-
-                    <div class="banner-row">
-
-                        <div class="banner-name">
-
-                            <div class="banner-icon">
-                                <i class="fas fa-image"></i>
-                            </div>
+                            <span class="submenu-dot"></span>
 
                             <span>
-                                {{ b.title }}
+                                No submenus
                             </span>
 
                         </div>
 
-
-                        <div class="actions">
-
-                            <a
-                                href="/edit-banner/{{ b.id }}"
-                                class="action-btn"
-                            >
-                                <i class="fas fa-pen"></i>
-                                <span>Edit</span>
-                            </a>
-
-                            <a
-                                href="/delete-banner/{{ b.id }}"
-                                class="action-btn delete"
-                                onclick="return confirm('Are you sure you want to delete this banner?');"
-                            >
-                                <i class="fas fa-trash"></i>
-                                <span>Delete</span>
-                            </a>
-
-                        </div>
+                        {% endfor %}
 
                     </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-
-                    <p>
-                        No banners available
-                    </p>
 
                 </div>
 
-                {% endif %}
+                {% endfor %}
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <p>
+                    No navbar items available
+                </p>
 
             </div>
 
-        </div>
-
-    </div>
-
-
-    <!-- =====================================
-         WEBSITE SECTIONS
-    ====================================== -->
-
-    <div
-    class="col-12"
-    id="content-section-management"
->
-
-        <div class="management-card">
-
-            <div class="management-header">
-
-                <div class="management-title">
-
-                    <div class="management-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-
-                    <div>
-
-                        <h6>
-                            Website Sections
-                        </h6>
-
-                        <span>
-                            Manage homepage heading, paragraph and image content
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="management-badge">
-                    Homepage Content
-                </div>
-
-            </div>
-
-
-            <div class="management-body">
-
-                {% if sections %}
-
-                    {% for section in sections %}
-
-                    <div class="banner-row">
-
-                        <div class="banner-name">
-
-                            <div class="banner-icon">
-                                <i class="fas fa-file-lines"></i>
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    {{ section.heading }}
-                                </strong>
-
-                                <small class="d-block text-muted">
-                                    {{ section.paragraph|truncatechars:100 }}
-                                </small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="actions">
-
-                                         <a
-    href="/edit-content-section/{{ section.id }}/"
-    class="action-btn"
->
-    <i class="fas fa-pen"></i>
-    <span>Edit</span>
-</a>
-
-
-                           <a
-    href="/delete-content-section/{{ section.id }}/"
-    class="action-btn delete"
-    onclick="return confirm('Are you sure you want to delete this section?');"
->
-    <i class="fas fa-trash"></i>
-    <span>Delete</span>
-</a>
-
-                        </div>
-
-                    </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-
-                    <p>
-                        No website sections available
-                    </p>
-
-                </div>
-
-                {% endif %}
-
-            </div>
+            {% endif %}
 
         </div>
 
@@ -587,6 +397,235 @@ Website content overview
 
 </div>
 
+
+<!-- =====================================
+     BANNER MANAGEMENT
+====================================== -->
+
+<div
+    class="col-lg-5"
+    id="banner-management"
+>
+
+    <div class="management-card">
+
+        <div class="management-header">
+
+            <div class="management-title">
+
+                <div class="management-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+
+                <div>
+
+                    <h6>
+                        Banner Management
+                    </h6>
+
+                    <span>
+                        Website banner content
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="management-badge">
+                Banners
+            </div>
+
+        </div>
+
+
+        <div class="management-body">
+
+            {% if banners %}
+
+                {% for b in banners %}
+
+                <div class="banner-row">
+
+                    <div class="banner-name">
+
+                        <div class="banner-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+
+                        <span>
+                            {{ b.title }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <a
+                            href="/edit-banner/{{ b.id }}"
+                            class="action-btn"
+                        >
+                            <i class="fas fa-pen"></i>
+                            <span>Edit</span>
+                        </a>
+
+                        <a
+                            href="/delete-banner/{{ b.id }}"
+                            class="action-btn delete"
+                            onclick="return confirm('Are you sure you want to delete this banner?');"
+                        >
+                            <i class="fas fa-trash"></i>
+                            <span>Delete</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+
+                <p>
+                    No banners available
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     WEBSITE SECTIONS
+====================================== -->
+
+<div
+    class="col-12"
+    id="content-section-management"
+>
+
+    <div class="management-card">
+
+        <div class="management-header">
+
+            <div class="management-title">
+
+                <div class="management-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+
+                <div>
+
+                    <h6>
+                        Website Sections
+                    </h6>
+
+                    <span>
+                        Manage homepage heading, paragraph and image content
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="management-badge">
+                Homepage Content
+            </div>
+
+        </div>
+
+
+        <div class="management-body">
+
+            {% if sections %}
+
+                {% for section in sections %}
+
+                <div class="banner-row">
+
+                    <div class="banner-name">
+
+                        <div class="banner-icon">
+                            <i class="fas fa-file-lines"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                {{ section.heading }}
+                            </strong>
+
+                            <small class="d-block text-muted">
+                                {{ section.paragraph|truncatechars:100 }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <a
+                            href="/edit-content-section/{{ section.id }}/"
+                            class="action-btn"
+                        >
+                            <i class="fas fa-pen"></i>
+                            <span>Edit</span>
+                        </a>
+
+
+                        <a
+                            href="/delete-content-section/{{ section.id }}/"
+                            class="action-btn delete"
+                            onclick="return confirm('Are you sure you want to delete this section?');"
+                        >
+                            <i class="fas fa-trash"></i>
+                            <span>Delete</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+
+                <p>
+                    No website sections available
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
 
 <!-- =========================================
      QUICK ACTIONS
@@ -594,103 +633,104 @@ Website content overview
 
 <div class="section-header mt-4">
 
-    <div>
 
-        <h5>
-            Quick Actions
-        </h5>
+<div>
 
-        <p>
-            Create new website content
-        </p>
+    <h5>
+        Quick Actions
+    </h5>
 
-    </div>
+    <p>
+        Create new website content
+    </p>
 
 </div>
 
+
+</div>
 
 <div class="quick-actions">
 
 
-    <!-- ADD NAVBAR -->
+<!-- ADD NAVBAR -->
 
-    <a
-        href="/add-navbar/"
-        class="quick-action"
-    >
+<a
+    href="/add-navbar/"
+    class="quick-action"
+>
 
-        <div class="quick-action-icon">
-            <i class="fas fa-plus"></i>
-        </div>
+    <div class="quick-action-icon">
+        <i class="fas fa-plus"></i>
+    </div>
 
-        <div>
+    <div>
 
-            <strong>
-                Add Navbar
-            </strong>
+        <strong>
+            Add Navbar
+        </strong>
 
-            <span>
-                Create a new navigation item
-            </span>
+        <span>
+            Create a new navigation item
+        </span>
 
-        </div>
+    </div>
 
-    </a>
-
-
-    <!-- ADD BANNER -->
-
-    <a
-        href="/add-banner/"
-        class="quick-action"
-    >
-
-        <div class="quick-action-icon">
-            <i class="fas fa-image"></i>
-        </div>
-
-        <div>
-
-            <strong>
-                Add Banner
-            </strong>
-
-            <span>
-                Create a new website banner
-            </span>
-
-        </div>
-
-    </a>
+</a>
 
 
-    <!-- ADD WEBSITE SECTION -->
+<!-- ADD BANNER -->
 
-    <a
-        href="/add-content-section/"
-        class="quick-action"
-    >
+<a
+    href="/add-banner/"
+    class="quick-action"
+>
 
-        <div class="quick-action-icon">
-            <i class="fas fa-layer-group"></i>
-        </div>
+    <div class="quick-action-icon">
+        <i class="fas fa-image"></i>
+    </div>
 
-        <div>
+    <div>
 
-            <strong>
-                Add Website Section
-            </strong>
+        <strong>
+            Add Banner
+        </strong>
 
-            <span>
-                Add heading, paragraph and image
-            </span>
+        <span>
+            Create a new website banner
+        </span>
 
-        </div>
+    </div>
 
-    </a>
+</a>
+
+
+<!-- ADD WEBSITE SECTION -->
+
+<a
+    href="/add-content-section/"
+    class="quick-action"
+>
+
+    <div class="quick-action-icon">
+        <i class="fas fa-layer-group"></i>
+    </div>
+
+    <div>
+
+        <strong>
+            Add Website Section
+        </strong>
+
+        <span>
+            Add heading, paragraph and image
+        </span>
+
+    </div>
+
+</a>
+
 
 </div>
-
 
 </main>
 

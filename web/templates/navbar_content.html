@@ -1,0 +1,610 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if content %}
+Edit Navbar Content
+{% else %}
+Add Navbar Content
+{% endif %}
+{% endblock %}
+
+{% block header_title %}
+{% if content %}
+Edit Navbar Content
+{% else %}
+Add Navbar Content
+{% endif %}
+{% endblock %}
+
+{% block header_description %}
+Manage content for {{ navbar.name }}
+{% endblock %}
+
+{% block content %}
+
+<main class="dashboard-content">
+
+
+<div class="form-page">
+
+    <!-- PAGE INTRO -->
+
+    <div class="page-intro">
+
+        <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Navbar Content
+        </div>
+
+        <h1>
+            {% if content %}
+                Edit Navbar Content
+            {% else %}
+                Add Navbar Content
+            {% endif %}
+        </h1>
+
+        <p>
+            Manage the heading, paragraph, image and documents for
+            <strong>{{ navbar.name }}</strong>.
+        </p>
+
+    </div>
+
+
+    <!-- FORM CARD -->
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-card-icon">
+                <i class="fas fa-file-lines"></i>
+            </div>
+
+            <div>
+
+                <h5>
+                    {{ navbar.name }} Content
+                </h5>
+
+                <p>
+                    Add or update the content displayed on this navbar page.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-card-body">
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- NAVBAR -->
+
+                <div class="form-group">
+
+                    <label for="navbar-name">
+                        Navbar
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <i class="fas fa-link"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            id="navbar-name"
+                            class="dashboard-input"
+                            value="{{ navbar.name }}"
+                            readonly
+                        >
+
+                    </div>
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        This content belongs to the
+                        <strong>{{ navbar.name }}</strong> navbar.
+
+                    </small>
+
+                </div>
+
+
+                <!-- HEADING -->
+
+                <div class="form-group">
+
+                    <label for="navbar-heading">
+                        Page Heading
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <i class="fas fa-heading"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            id="navbar-heading"
+                            name="heading"
+                            class="dashboard-input"
+                            value="{% if content %}{{ content.heading }}{% endif %}"
+                            placeholder="Enter page heading"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PARAGRAPH -->
+
+                <div class="form-group">
+
+                    <label for="navbar-paragraph">
+                        Page Paragraph
+                    </label>
+
+                    <textarea
+                        id="navbar-paragraph"
+                        name="paragraph"
+                        class="dashboard-input dashboard-textarea"
+                        rows="8"
+                        placeholder="Enter the page paragraph..."
+                        required
+                    >{% if content %}{{ content.paragraph }}{% endif %}</textarea>
+
+                </div>
+
+
+                <!-- CURRENT IMAGE -->
+
+                {% if content and content.image %}
+
+                <div class="form-group">
+
+                    <label>
+                        Current Image
+                    </label>
+
+                    <div class="current-image-box">
+
+                        <div class="current-image-label">
+
+                            <i class="fas fa-eye"></i>
+
+                            Current {{ navbar.name }} Image
+
+                        </div>
+
+                        <img
+                            src="{{ content.image.url }}"
+                            alt="{{ content.heading }}"
+                            class="current-banner-image"
+                        >
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- IMAGE -->
+
+                <div class="form-group">
+
+                    <label for="navbar-image">
+
+                        {% if content and content.image %}
+                            Replace Image
+                        {% else %}
+                            Page Image
+                        {% endif %}
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="navbar-image"
+                        name="image"
+                        class="dashboard-input file-input"
+                        accept="image/*"
+                        {% if not content %}required{% endif %}
+                    >
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        {% if content and content.image %}
+                            Leave empty if you don't want to change
+                            the current image.
+                        {% else %}
+                            Upload an image for this navbar page.
+                        {% endif %}
+
+                    </small>
+
+                </div>
+
+
+                <!-- NEW IMAGE PREVIEW -->
+
+                <div
+                    id="imagePreviewBox"
+                    class="section-image-preview"
+                    style="display:none;"
+                >
+
+                    <div class="preview-label">
+                        New Image Preview
+                    </div>
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="New image preview"
+                    >
+
+                </div>
+
+
+                <!-- =========================================
+                     DOCUMENTS
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label>
+                        Page Documents
+                    </label>
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        Add one or multiple documents for this navbar page.
+
+                    </small>
+
+                </div>
+
+
+                <!-- EXISTING DOCUMENTS -->
+
+                {% if content and content.documents.all %}
+
+                    {% for doc in content.documents.all %}
+
+                    <div
+                        class="current-image-box"
+                        style="margin-bottom:15px;"
+                    >
+
+                        <div class="current-image-label">
+
+                            <i class="fas fa-file-lines"></i>
+
+                            Existing Document
+
+                        </div>
+
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:space-between;
+                            gap:15px;
+                            padding:16px;
+                            flex-wrap:wrap;
+                        ">
+
+                            <div>
+
+                                <strong>
+                                    {{ doc.document_name }}
+                                </strong>
+
+                                <br>
+
+                              <a
+                                    href="{{ doc.document.url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Document
+                                </a>
+
+                            </div>
+
+                            <label
+                                style="
+                                    display:flex;
+                                    align-items:center;
+                                    gap:8px;
+                                    margin:0;
+                                "
+                            >
+
+                                <input
+                                    type="checkbox"
+                                    name="delete_documents"
+                                    value="{{ doc.id }}"
+                                >
+
+                                Delete
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                <!-- NEW DOCUMENTS -->
+
+                <div id="documents-container">
+
+                    <div
+                        class="document-upload-row"
+                        style="
+                            display:grid;
+                            grid-template-columns:1fr 1fr auto;
+                            gap:12px;
+                            margin-bottom:15px;
+                            align-items:center;
+                        "
+                    >
+
+                        <input
+                            type="text"
+                            name="document_names"
+                            class="dashboard-input"
+                            placeholder="Document name"
+                        >
+
+                        <input
+                            type="file"
+                            name="documents"
+                            class="dashboard-input file-input"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                        >
+
+                        <button
+                            type="button"
+                            class="remove-document-btn"
+                            onclick="removeDocumentRow(this)"
+                            style="display:none;"
+                        >
+                            <i class="fas fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADD DOCUMENT -->
+
+                <button
+                    type="button"
+                    class="action-btn sub"
+                    id="addDocumentBtn"
+                    style="margin-top:5px;"
+                >
+
+                    <i class="fas fa-plus"></i>
+
+                    <span>
+                        Add Another Document
+                    </span>
+
+                </button>
+
+
+                <!-- ACTIONS -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'dashboard' %}#navbar-management"
+                        class="btn-cancel"
+                    >
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="btn-save"
+                    >
+
+                        <i class="fas fa-check"></i>
+
+                        {% if content %}
+                            Update Content
+                        {% else %}
+                            Save Content
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="form-footer">
+
+                    <i class="fas fa-shield-halved"></i>
+
+                    Changes will be saved to the
+                    <strong>{{ navbar.name }}</strong> page.
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</main>
+
+<script>
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+const imageInput =
+    document.getElementById("navbar-image");
+
+const previewBox =
+    document.getElementById("imagePreviewBox");
+
+const previewImage =
+    document.getElementById("imagePreview");
+
+
+if (imageInput) {
+
+    imageInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+
+                previewImage.src =
+                    event.target.result;
+
+                previewBox.style.display =
+                    "block";
+
+            };
+
+            reader.readAsDataURL(file);
+
+        } else {
+
+            previewBox.style.display =
+                "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   MULTIPLE DOCUMENTS
+========================================================= */
+
+const addDocumentBtn =
+    document.getElementById("addDocumentBtn");
+
+const documentsContainer =
+    document.getElementById("documents-container");
+
+
+addDocumentBtn.addEventListener("click", function () {
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "document-upload-row";
+
+    row.style.cssText = `
+        display:grid;
+        grid-template-columns:1fr 1fr auto;
+        gap:12px;
+        margin-bottom:15px;
+        align-items:center;
+    `;
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            name="document_names"
+            class="dashboard-input"
+            placeholder="Document name"
+        >
+
+        <input
+            type="file"
+            name="documents"
+            class="dashboard-input file-input"
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+        >
+
+        <button
+            type="button"
+            class="remove-document-btn"
+            onclick="removeDocumentRow(this)"
+        >
+
+            <i class="fas fa-trash"></i>
+
+        </button>
+
+    `;
+
+
+    documentsContainer.appendChild(row);
+
+});
+
+
+function removeDocumentRow(button) {
+
+    const row =
+        button.closest(".document-upload-row");
+
+    if (row) {
+
+        row.remove();
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

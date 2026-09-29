@@ -1,0 +1,796 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if content %}
+Edit Submenu Content
+{% else %}
+Add Submenu Content
+{% endif %}
+{% endblock %}
+
+{% block header_title %}
+{% if content %}
+Edit Submenu Content
+{% else %}
+Add Submenu Content
+{% endif %}
+{% endblock %}
+
+{% block header_description %}
+Manage content for {{ submenu.name }}
+{% endblock %}
+
+{% block content %}
+
+<main class="dashboard-content">
+
+
+<div class="form-page">
+
+    <!-- PAGE INTRO -->
+
+    <div class="page-intro">
+
+        <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Submenu Content
+        </div>
+
+        <h1>
+            {% if content %}
+                Edit Submenu Content
+            {% else %}
+                Add Submenu Content
+            {% endif %}
+        </h1>
+
+        <p>
+            Manage the heading, paragraph and image for
+            <strong>{{ submenu.name }}</strong>.
+        </p>
+
+    </div>
+
+
+    <!-- FORM CARD -->
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-card-icon">
+                <i class="fas fa-file-lines"></i>
+            </div>
+
+            <div>
+
+                <h5>
+                    {{ submenu.name }} Content
+                </h5>
+
+                <p>
+                    Add or update the content displayed on this submenu page.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-card-body">
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =========================================
+                     SUBMENU
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label id="submenu-name">
+                        Submenu
+                    </label>
+                      <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                <i class="fas fa-link"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="submenu-name"
+                                class="dashboard-input"
+                                value="{{ submenu.name }}"
+                                readonly
+                            >
+
+                        </div>
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        This content belongs to the
+                        <strong>{{ submenu.name }}</strong> submenu.
+
+                    </small>
+
+                </div>
+
+
+                <!-- =========================================
+                     HEADING
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label for="submenu-heading">
+                        Page Heading
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <i class="fas fa-heading"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            id="submenu-heading"
+                            name="heading"
+                            class="dashboard-input"
+                            value="{% if content %}{{ content.heading }}{% endif %}"
+                            placeholder="Enter page heading"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     PARAGRAPH
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label for="submenu-paragraph">
+                        Page Paragraph
+                    </label>
+
+                    <textarea
+                        id="submenu-paragraph"
+                        name="paragraph"
+                        class="dashboard-input dashboard-textarea"
+                        rows="8"
+                        placeholder="Enter the page paragraph..."
+                        required
+                    >{% if content %}{{ content.paragraph }}{% endif %}</textarea>
+
+                </div>
+
+
+                <!-- =========================================
+                     CURRENT IMAGE
+                ========================================== -->
+
+                {% if content and content.image %}
+
+                <div class="form-group">
+
+                    <label>
+                        Current Image
+                    </label>
+
+                    <div class="current-image-box">
+
+                        <div class="current-image-label">
+
+                            <i class="fas fa-eye"></i>
+
+                            Current {{ submenu.name }} Image
+
+                        </div>
+
+                        <img
+                            src="{{ content.image.url }}"
+                            alt="{{ content.heading }}"
+                            class="current-banner-image"
+                        >
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     IMAGE
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label for="submenu-image">
+
+                        {% if content and content.image %}
+                            Replace Image
+                        {% else %}
+                            Page Image
+                        {% endif %}
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="submenu-image"
+                        name="image"
+                        class="dashboard-input file-input"
+                        accept="image/*"
+                        {% if not content %}required{% endif %}
+                    >
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        {% if content and content.image %}
+
+                            Leave empty if you don't want to change
+                            the current image.
+
+                        {% else %}
+
+                            Upload an image for this submenu page.
+
+                        {% endif %}
+
+                    </small>
+
+                </div>
+
+
+                <!-- =========================================
+                     NEW IMAGE PREVIEW
+                ========================================== -->
+
+                <div
+                    id="imagePreviewBox"
+                    class="section-image-preview"
+                    style="display:none;"
+                >
+
+                    <div class="preview-label">
+                        New Image Preview
+                    </div>
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="New image preview"
+                    >
+
+                </div>
+
+
+                <!-- =========================================
+                     EXISTING DOCUMENTS
+                ========================================== -->
+
+                {% if content %}
+
+                <div class="form-group">
+
+                    <label>
+                        Existing Documents
+                    </label>
+
+
+                    {% for doc in content.documents.all %}
+
+                    <div class="current-image-box mb-3">
+
+                        <div
+                            style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:space-between;
+                                gap:15px;
+                                padding:16px;
+                            "
+                        >
+
+                            <div
+                                style="
+                                    display:flex;
+                                    align-items:center;
+                                    gap:12px;
+                                "
+                            >
+
+                                <i
+                                    class="fas fa-file-lines"
+                                    style="font-size:24px;"
+                                ></i>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ doc.document_name }}
+                                    </strong>
+
+                                    <br>
+
+                                    <div class="current-image-box document-card mb-3">
+
+    <div class="document-card-inner">
+
+        <!-- LEFT -->
+        <div class="document-info">
+
+            <div class="document-icon">
+                <i class="fas fa-file-lines"></i>
+            </div>
+
+            <div class="document-details">
+
+                <strong class="document-name">
+                    {{ doc.document_name }}
+                </strong>
+
+                <span class="document-label">
+                    Uploaded document
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+        <div class="document-actions">
+
+            <a
+                href="{{ doc.document.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="document-action document-action-view"
+            >
+                <i class="fas fa-eye"></i>
+                <span>View</span>
+            </a>
+
+
+            <a
+                href="{% url 'delete_submenu_document' doc.id %}"
+                class="document-action document-action-delete"
+                onclick="return confirm('Are you sure you want to delete this document?');"
+            >
+                <i class="fas fa-trash-can"></i>
+                <span>Remove</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% empty %}
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        No documents have been added yet.
+
+                    </small>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     ADD NEW DOCUMENTS
+                ========================================== -->
+
+                <div class="form-group">
+
+                    <label>
+                        Add Documents
+                    </label>
+
+
+                    <div id="document-container">
+
+                        <!-- FIRST DOCUMENT ROW -->
+
+                        <div
+                            class="document-row"
+                            style="
+                                display:grid;
+                                grid-template-columns:1fr 1fr auto;
+                                gap:12px;
+                                align-items:center;
+                                margin-bottom:12px;
+                            "
+                        >
+
+                            <!-- DOCUMENT NAME -->
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    <i class="fas fa-file-lines"></i>
+                                </span>
+
+                                <input
+                                    type="text"
+                                    name="document_names"
+                                    class="dashboard-input"
+                                    placeholder="Document name"
+                                >
+
+                            </div>
+
+
+                            <!-- DOCUMENT FILE -->
+
+                           <input
+                            type="file"
+                            name="documents"
+                            class="dashboard-input file-input"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                        >
+
+
+                            <!-- REMOVE -->
+
+                            <button
+                                type="button"
+                                class="btn-remove-document"
+                                onclick="removeDocument(this)"
+                                style="
+                                    border:0;
+                                    background:transparent;
+                                    cursor:pointer;
+                                    font-size:18px;
+                                "
+                            >
+
+                                <i class="fas fa-trash"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD ANOTHER DOCUMENT -->
+
+                    <button
+                        type="button"
+                        class="btn-save"
+                        id="addDocumentBtn"
+                        style="margin-top:10px;"
+                    >
+
+                        <i class="fas fa-plus"></i>
+
+                        Add Another Document
+
+                    </button>
+
+
+                    <small class="input-help">
+
+                        <i class="fas fa-circle-info"></i>
+
+                        Add as many documents as you need.
+
+                    </small>
+
+                </div>
+
+
+                <!-- =========================================
+                     ACTIONS
+                ========================================== -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'dashboard' %}#navbar-management"
+                        class="btn-cancel"
+                    >
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="btn-save"
+                    >
+
+                        <i class="fas fa-check"></i>
+
+                        {% if content %}
+                            Update Content
+                        {% else %}
+                            Save Content
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+
+                <!-- =========================================
+                     FOOTER
+                ========================================== -->
+
+                <div class="form-footer">
+
+                    <i class="fas fa-shield-halved"></i>
+
+                    Changes will be saved to the
+                    <strong>{{ submenu.name }}</strong> page.
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</main>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================
+       IMAGE PREVIEW
+    ========================================= */
+
+    const imageInput =
+        document.getElementById("submenu-image");
+
+    const previewBox =
+        document.getElementById("imagePreviewBox");
+
+    const previewImage =
+        document.getElementById("imagePreview");
+
+
+    if (imageInput) {
+
+        imageInput.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (file) {
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                    previewImage.src =
+                        event.target.result;
+
+                    previewBox.style.display =
+                        "block";
+
+                };
+
+                reader.readAsDataURL(file);
+
+            } else {
+
+                previewBox.style.display =
+                    "none";
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================
+       DOCUMENT ELEMENTS
+    ========================================= */
+
+    const container =
+        document.getElementById(
+            "document-container"
+        );
+
+    const addButton =
+        document.getElementById(
+            "addDocumentBtn"
+        );
+
+
+    /* =========================================
+       ADD DOCUMENT
+    ========================================= */
+
+    if (container && addButton) {
+
+        addButton.addEventListener(
+            "click",
+            function () {
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "document-row";
+
+                row.style.cssText = `
+                    display:grid;
+                    grid-template-columns:1fr 1fr auto;
+                    gap:12px;
+                    align-items:center;
+                    margin-bottom:12px;
+                `;
+
+
+                row.innerHTML = `
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <i class="fas fa-file-lines"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            name="document_names"
+                            class="dashboard-input"
+                            placeholder="Document name"
+                        >
+
+                    </div>
+
+                    <input
+                        type="file"
+                        name="documents"
+                        class="dashboard-input file-input"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                    >
+
+                    <button
+                        type="button"
+                        class="btn-remove-document"
+                        style="
+                            border:0;
+                            background:transparent;
+                            cursor:pointer;
+                            font-size:18px;
+                        "
+                    >
+                        <i class="fas fa-trash"></i>
+                    </button>
+
+                `;
+
+
+                container.appendChild(row);
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       REMOVE DOCUMENT
+    ========================================= */
+
+    if (container) {
+
+        container.addEventListener(
+            "click",
+            function (event) {
+
+                const button =
+                    event.target.closest(
+                        ".btn-remove-document"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                const row =
+                    button.closest(
+                        ".document-row"
+                    );
+
+
+                if (!row) {
+                    return;
+                }
+
+
+                const rows =
+                    container.querySelectorAll(
+                        ".document-row"
+                    );
+
+
+                /* Keep one empty row */
+
+                if (rows.length === 1) {
+
+                    const nameInput =
+                        row.querySelector(
+                            'input[name="document_names"]'
+                        );
+
+                    const fileInput =
+                        row.querySelector(
+                            'input[name="documents"]'
+                        );
+
+
+                    if (nameInput) {
+                        nameInput.value = "";
+                    }
+
+
+                    if (fileInput) {
+                        fileInput.value = "";
+                    }
+
+
+                } else {
+
+                    row.remove();
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

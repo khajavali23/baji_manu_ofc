@@ -1,174 +1,487 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 
-
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>My Dynamic Website</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- =========================================
+         BOOTSTRAP
+    ========================================== -->
 
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-    <!-- 🔥 FAVICON -->
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    
+
+    <!-- =========================================
+         FONT AWESOME
+    ========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+
+
+    <!-- =========================================
+         GLOBAL CSS
+    ========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+
+    <!-- =========================================
+         FAVICON
+    ========================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="{% static 'images/favicon.png' %}"
+    >
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
 <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+
     <div class="container d-flex align-items-center justify-content-between">
-        <!-- 🔥 LEFT LOGO -->
-        <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo.png' %}" alt="Logo" />
+
+
+        <!-- LOGO -->
+
+        <a
+            class="navbar-brand"
+            href="#"
+        >
+
+            <img
+                src="{% static 'images/logo.png' %}"
+                alt="Logo"
+            >
+
         </a>
 
-        <!-- 🔥 CENTER MENU -->
-        <div class="collapse navbar-collapse justify-content-center" id="nav">
+
+        <!-- CENTER MENU -->
+
+        <div
+            class="collapse navbar-collapse justify-content-center"
+            id="nav"
+        >
+
             <ul class="navbar-nav">
+
                 {% for nav in navbars %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle drop_down_hover" href="#">
-                        {{ nav.name }} <i class="fas fa-chevron-down small"></i>
-                    </a>
 
-                    {% if nav.submenus.all %}
-                    <ul class="dropdown-menu drop_down">
-    {% for sub in nav.submenus.all %}
-    <li>
-        {% if sub.file %}
-            <a class="dropdown-item" href="{{ sub.file.url }}" target="_blank">
-                {{ sub.name }}
-            </a>
-        {% else %}
-            <span class="dropdown-item text-muted">
-                {{ sub.name }}
-            </span>
-        {% endif %}
-    </li>
-    {% empty %}
-    <li>
-        <span class="dropdown-item text-muted">No items</span>
-    </li>
-    {% endfor %}
-</ul>
-                    {% endif %}
-                </li>
+                    <li class="nav-item dropdown">
+
+
+                        <!-- =====================================
+                             MAIN NAVBAR
+                        ====================================== -->
+
+                        {% if nav.content %}
+
+                            <a
+                                class="nav-link dropdown-toggle drop_down_hover navbar-content-trigger"
+                                href="javascript:void(0);"
+                                data-navbar-id="{{ nav.id }}"
+                            >
+
+                                {{ nav.name }}
+
+                                {% if nav.submenus.all %}
+                                    <i class="fas fa-chevron-down small"></i>
+                                {% endif %}
+
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                class="nav-link dropdown-toggle drop_down_hover"
+                                href="javascript:void(0);"
+                            >
+
+                                {{ nav.name }}
+
+                                {% if nav.submenus.all %}
+                                    <i class="fas fa-chevron-down small"></i>
+                                {% endif %}
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <!-- =====================================
+                             SUBMENUS
+                        ====================================== -->
+
+                        {% if nav.submenus.all %}
+
+                            <ul class="dropdown-menu drop_down">
+
+                                {% for sub in nav.submenus.all %}
+
+                                    <li>
+
+                                        {% if sub.content %}
+
+                                            <a
+                                                class="dropdown-item submenu-content-trigger"
+                                                href="javascript:void(0);"
+                                                data-submenu-id="{{ sub.id }}"
+                                            >
+
+                                                {{ sub.name }}
+
+                                            </a>
+
+                                        {% else %}
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="javascript:void(0);"
+                                            >
+
+                                                {{ sub.name }}
+
+                                            </a>
+
+                                        {% endif %}
+
+                                    </li>
+
+                                {% endfor %}
+
+                            </ul>
+
+                        {% endif %}
+
+                    </li>
+
                 {% endfor %}
+
             </ul>
+
         </div>
 
-        <!-- 🔥 RIGHT ICONS -->
+
+        <!-- RIGHT ICONS -->
+
         <div class="nav-icons d-flex align-items-center gap-3">
-            <!-- SEARCH -->
-            
 
-            <!-- GRID (DESKTOP ONLY) -->
             <div class="icon-circle grid d-none d-lg-flex">
+
                 <i class="fa-solid fa-grip"></i>
+
             </div>
 
-            <!-- 🔥 GRID AS TOGGLER (MOBILE) -->
-            <!-- 🔥 GRID AS TOGGLER (MOBILE) -->
-            <div class="icon-circle grid d-lg-none" id="mobileMenuToggle">
+            <div
+                class="icon-circle grid d-lg-none"
+                id="mobileMenuToggle"
+            >
+
                 <i class="fa-solid fa-grip"></i>
+
             </div>
+
         </div>
+
     </div>
+
 </nav>
 
 
-<!-- 🔥 HERO BANNER -->
-html
+
+<!-- =========================================================
+     NAVBAR CONTENT DATA
+     Used by the popup JavaScript
+========================================================= -->
+
+<div id="navbarContentData" style="display:none;">
+
+    {% for nav in navbars %}
+
+        {% if nav.content %}
+
+           <div
+    class="navbar-data-item"
+    data-id="{{ nav.id }}"
+    data-heading="{{ nav.content.heading }}"
+    data-paragraph="{{ nav.content.paragraph }}"
+    data-image="{% if nav.content.image %}{{ nav.content.image.url }}{% endif %}"
+>
+
+                {% for doc in nav.content.documents.all %}
+
+                    <span
+                        class="navbar-document"
+                        data-document-name="{{ doc.document_name }}"
+                        data-document-url="{{ doc.document.url }}"
+                    ></span>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+
+
+
 <!-- =========================================
-     PREMIUM HERO SECTION
+     PREMIUM HERO
 ========================================= -->
 
 {% if banner %}
 
 <section class="premium-hero">
 
+
     <!-- BACKGROUND -->
+
     <div class="premium-hero-bg">
-        <img
-            src="{{ banner.image.url }}"
-            alt="{{ banner.title }}"
-        >
+
+       {% if banner.image %}
+
+<img
+    src="{{ banner.image.url }}"
+    alt="{{ banner.title }}"
+>
+
+{% endif %}
+
     </div>
 
-    <!-- DARK / PREMIUM OVERLAY -->
+
+    <!-- OVERLAY -->
+
     <div class="premium-hero-overlay"></div>
 
 
     <div class="container premium-hero-container">
 
-        <!-- =====================================
-             LEFT : BANNER CONTENT
-        ====================================== -->
+
+        <!-- LEFT : BANNER -->
 
         <div class="hero-main-content">
 
             <div class="hero-eyebrow">
+
                 <span class="hero-eyebrow-line"></span>
-                <span>Welcome</span>
+
+                <span>
+                    Welcome To Intranet
+                </span>
+
             </div>
 
-            <h1 class="hero-title">
-                {{ banner.title }}
-            </h1>
 
-            <p class="hero-description">
-                {{ banner.description }}
-            </p>
+          
+<h1 class="hero-title">
+
+    {{ banner.title }}
+
+</h1>
+
+
+<p class="hero-description">
+
+    {{ banner.description }}
+
+</p>
+
+
+{% if banner.buttons.all %}
+
+<div class="hero-actions">
+
+    {% for button in banner.buttons.all %}
+
+        {% if button.is_active %}
+
+            {% if button.button_type == "url" %}
+
+                <a
+                    href="{{ button.url }}"
+                    class="hero-action hero-action-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <span>
+                        {{ button.text }}
+                    </span>
+
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+
+                </a>
+
+
+            {% elif button.button_type == "page" %}
+
+                <a
+                    href="{{ button.page_url }}"
+                    class="hero-action hero-action-primary"
+                >
+
+                    <span>
+                        {{ button.text }}
+                    </span>
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+
+            {% elif button.button_type == "email" %}
+
+                <a
+                    href="mailto:{{ button.email }}"
+                    class="hero-action hero-action-primary"
+                >
+
+                    <span>
+                        {{ button.text }}
+                    </span>
+
+                    <i class="fas fa-envelope"></i>
+
+                </a>
+
+
+            {% elif button.button_type == "document" and button.document %}
+
+                <a
+                    href="{{ button.document.url }}"
+                    class="hero-action hero-action-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <span>
+                        {{ button.text }}
+                    </span>
+
+                    <i class="fas fa-file-lines"></i>
+
+                </a>
+
+            {% endif %}
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+
+
+
+            <!-- BANNER EMAIL BUTTON -->
+
+            {% if banner.button_text and banner.button_email %}
+
+            <div class="hero-cta">
+
+                <a
+                    href="mailto:{{ banner.button_email }}"
+                    class="hero-cta-link"
+                    aria-label="{{ banner.button_text }}"
+                >
+
+                    <span class="hero-cta-label">
+                        {{ banner.button_text }}
+                    </span>
+
+                    <span class="hero-cta-icon">
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </span>
+
+                </a>
+
+            </div>
+
+            {% endif %}
 
         </div>
 
 
-        <!-- =====================================
-             RIGHT : WEBSITE SECTION
-        ====================================== -->
+
+        <!-- RIGHT : WEBSITE SECTION -->
 
         {% if sections %}
 
-            {% for section in sections|slice:":1" %}
+        <div class="premium-section-carousel">
 
-            <div class="hero-section-showcase">
+            <button
+                type="button"
+                class="premium-carousel-arrow premium-carousel-prev"
+                aria-label="Previous"
+            >
 
-                <div class="showcase-card">
+                <i class="fas fa-chevron-left"></i>
 
-                    <!-- IMAGE -->
+            </button>
 
-                    <div class="showcase-image">
+
+            <div class="premium-carousel-track">
+
+                {% for section in sections %}
+
+                <article
+                    class="premium-carousel-card"
+                    data-index="{{ forloop.counter0 }}"
+                >
+
+                    <div class="premium-carousel-image">
+
+                        {% if section.image %}
 
                         <img
                             src="{{ section.image.url }}"
                             alt="{{ section.heading }}"
                         >
 
-                        <div class="showcase-image-overlay"></div>
+                        {% endif %}
 
-                        <span class="showcase-tag">
-                            Featured
-                        </span>
+                        <div class="premium-carousel-image-overlay"></div>
 
                     </div>
 
 
-                    <!-- CONTENT -->
-
-                    <div class="showcase-body">
-
-                        <span class="showcase-kicker">
-                            Discover More
-                        </span>
+                    <div class="premium-carousel-content">
 
                         <h2>
                             {{ section.heading }}
@@ -178,34 +491,77 @@ html
                             {{ section.paragraph }}
                         </p>
 
-                        <div class="showcase-footer">
 
-                            <span>
-                                Explore
-                            </span>
+                        <div class="premium-carousel-footer">
 
-                            <span class="showcase-arrow">
-                                <i class="fas fa-arrow-up-right-from-square"></i>
-                            </span>
+                            <a
+                                href="{{ section.link }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="premium-carousel-explore-link"
+                            >
+
+                                <span>
+                                    Explore
+                                </span>
+
+                                <span class="premium-carousel-arrow-icon">
+
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+
+                                </span>
+
+                            </a>
 
                         </div>
 
                     </div>
 
-                </div>
+                </article>
+
+                {% endfor %}
 
             </div>
 
-            {% endfor %}
+
+            <button
+                type="button"
+                class="premium-carousel-arrow premium-carousel-next"
+                aria-label="Next"
+            >
+
+                <i class="fas fa-chevron-right"></i>
+
+            </button>
+
+
+            <div class="premium-carousel-progress">
+
+                <span class="premium-carousel-progress-current">
+                    01
+                </span>
+
+                <span class="premium-carousel-progress-line">
+                    <span></span>
+                </span>
+
+                <span class="premium-carousel-progress-total">
+
+                    {% if sections|length < 10 %}0{% endif %}{{ sections|length }}
+
+                </span>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
     </div>
 
 
-    <!-- =====================================
-         BOTTOM HERO META
-    ====================================== -->
+
+    <!-- HERO BOTTOM -->
 
     <div class="hero-bottom">
 
@@ -225,17 +581,1298 @@ html
 
     </div>
 
+
 </section>
 
 {% endif %}
 
 
 
+<!-- =========================================
+     SUBMENU DATA
+
+     IMPORTANT:
+     This contains the actual submenu
+     heading / paragraph / image data.
+========================================= -->
+
+<div id="submenuData" style="display:none;">
+
+    {% for item in submenu_contents %}
+
+        <div
+            class="submenu-data-item"
+            data-id="{{ item.id }}"
+            data-heading="{{ item.heading|escape }}"
+            data-paragraph="{{ item.paragraph|escape }}"
+            data-image="{{ item.image }}"
+        >
+
+            {% for doc in item.documents %}
+
+                <span
+                    class="submenu-document"
+                    data-document-id="{{ doc.id }}"
+                    data-document-name="{{ doc.name|escape }}"
+                    data-document-url="{{ doc.url }}"
+                ></span>
+
+            {% endfor %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<div id="navbarData" style="display:none;">
+
+    {% for item in navbar_contents %}
+
+        <div
+            class="navbar-data-item"
+            data-id="{{ item.id }}"
+            data-heading="{{ item.heading|escape }}"
+            data-paragraph="{{ item.paragraph|escape }}"
+            data-image="{{ item.image }}"
+        >
+
+            {% for doc in item.documents %}
+
+                <span
+                    class="navbar-document"
+                    data-document-id="{{ doc.id }}"
+                    data-document-name="{{ doc.name|escape }}"
+                    data-document-url="{{ doc.url }}"
+                ></span>
+
+            {% endfor %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
 
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{% static 'js/navbar.js' %}"></script>
+
+<!-- =========================================
+     SUBMENU CONTENT OVERLAY
+========================================= -->
+
+<div
+    id="submenuContentOverlay"
+    class="submenu-content-overlay"
+>
+
+
+    <!-- BACKDROP -->
+
+    <div class="submenu-content-backdrop"></div>
+
+
+
+    <!-- MODAL -->
+
+    <div class="submenu-content-modal">
+
+
+        <!-- CLOSE -->
+
+        <button
+            type="button"
+            id="submenuContentClose"
+            class="submenu-content-close"
+            aria-label="Close"
+        >
+
+            <i class="fas fa-xmark"></i>
+
+        </button>
+
+
+
+        <div class="submenu-content-inner">
+
+
+            <!-- IMAGE -->
+
+            <div class="submenu-content-image">
+
+                <img
+                    id="submenuContentImage"
+                    src=""
+                    alt=""
+                >
+
+            </div>
+
+
+
+            <!-- CONTENT -->
+
+            <div class="submenu-content-text">
+
+
+                <span class="submenu-content-kicker">
+                    Discover More
+                </span>
+
+
+                <h2
+                    id="submenuContentHeading"
+                ></h2>
+
+
+                <p
+                    id="submenuContentParagraph"
+                ></p>
+
+
+                <!-- DOCUMENT -->
+
+                <div
+                    id="submenuContentDocument"
+                    class="submenu-content-document"
+                >
+
+                    <div class="submenu-document-info">
+
+                        <span class="submenu-document-icon">
+
+                            <i class="fas fa-file-lines"></i>
+
+                        </span>
+
+
+                        <div class="submenu-document-details">
+
+                            <span
+                                id="submenuContentDocumentName"
+                                class="submenu-document-name"
+                            ></span>
+
+
+                            <span class="submenu-document-label">
+                                Available Document
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        id="submenuContentDocumentLink"
+                        class="submenu-document-button"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <span>
+                            View Document
+                        </span>
+
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     SUBMENU POPUP CSS
+========================================= -->
+
+<style>
+
+.submenu-content-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+
+}
+
+
+.submenu-content-overlay.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* BACKDROP */
+
+
+
+/* MODAL */
+
+.submenu-content-modal {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1050px, 100%);
+
+    max-height: 90vh;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.35);
+
+    transform:
+        translateY(30px)
+        scale(0.97);
+
+    transition:
+        transform 0.4s cubic-bezier(.2,.8,.2,1);
+
+}
+
+
+.submenu-content-overlay.active
+.submenu-content-modal {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+
+/* IMAGE */
+
+.submenu-content-image {
+
+    position: relative;
+
+    min-height: 520px;
+
+    overflow: hidden;
+
+    background: #f2f2f2;
+
+}
+
+
+.submenu-content-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+}
+
+
+/* TEXT */
+
+.submenu-content-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    
+
+    padding: 50px 25px;
+
+}
+
+
+
+
+
+.submenu-content-kicker {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #ffffffa6;
+}
+
+
+.submenu-content-text h2 {
+
+    margin: 0 0 22px;
+
+    font-size: clamp(32px, 4vw, 54px);
+
+    line-height: 1.05;
+
+    font-weight: 600;
+
+    letter-spacing: -0.04em;
+
+    color: #ffff;
+
+}
+
+
+.submenu-content-text p {
+
+    margin: 0;
+
+    max-width: 520px;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #ffff;
+
+}
+
+
+/* CLOSE BUTTON */
+
+.submenu-content-close {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    z-index: 10;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.94);
+
+    color: #111;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+
+}
+
+
+.submenu-content-close:hover {
+
+    transform: rotate(90deg);
+
+    background: #111;
+
+    color: #fff;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .submenu-content-overlay {
+
+        padding: 15px;
+
+    }
+
+
+    .submenu-content-modal {
+
+        max-height: 92vh;
+
+        overflow-y: auto;
+
+        border-radius: 20px;
+
+    }
+
+
+    .submenu-content-inner {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .submenu-content-image {
+
+        min-height: 260px;
+
+        height: 260px;
+
+    }
+
+
+    .submenu-content-text {
+
+        padding: 40px 28px 45px;
+
+    }
+
+
+    .submenu-content-text h2 {
+
+        font-size: 34px;
+
+    }
+
+
+    .submenu-content-text p {
+
+        font-size: 15px;
+
+    }
+
+}
+
+</style>
+
+
+
+<!-- =========================================
+     SUBMENU JAVASCRIPT
+========================================= -->
+
+
+
+
+
+<!-- =========================================
+     BOOTSTRAP JS
+========================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<script
+    src="{% static 'js/navbar.js' %}"
+></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================================
+       PREMIUM CAROUSEL
+    ========================================================= */
+
+    const cards = Array.from(
+        document.querySelectorAll(".premium-carousel-card")
+    );
+
+    const previous = document.querySelector(
+        ".premium-carousel-prev"
+    );
+
+    const next = document.querySelector(
+        ".premium-carousel-next"
+    );
+
+    const currentNumber = document.querySelector(
+        ".premium-carousel-progress-current"
+    );
+
+    const progress = document.querySelector(
+        ".premium-carousel-progress-line span"
+    );
+
+
+    if (cards.length && previous && next) {
+
+        let currentIndex = 0;
+
+
+        function updateCarousel() {
+
+            const total = cards.length;
+
+
+            cards.forEach(function (card, index) {
+
+                card.classList.remove(
+                    "is-center",
+                    "is-left",
+                    "is-right",
+                    "is-hidden-left",
+                    "is-hidden-right"
+                );
+
+
+                let difference =
+                    index - currentIndex;
+
+
+                if (difference > total / 2) {
+                    difference -= total;
+                }
+
+
+                if (difference < -total / 2) {
+                    difference += total;
+                }
+
+
+                if (difference === 0) {
+
+                    card.classList.add(
+                        "is-center"
+                    );
+
+                }
+
+                else if (difference === -1) {
+
+                    card.classList.add(
+                        "is-left"
+                    );
+
+                }
+
+                else if (difference === 1) {
+
+                    card.classList.add(
+                        "is-right"
+                    );
+
+                }
+
+                else if (difference < 0) {
+
+                    card.classList.add(
+                        "is-hidden-left"
+                    );
+
+                }
+
+                else {
+
+                    card.classList.add(
+                        "is-hidden-right"
+                    );
+
+                }
+
+            });
+
+
+            if (currentNumber) {
+
+                currentNumber.textContent =
+                    String(
+                        currentIndex + 1
+                    ).padStart(2, "0");
+
+            }
+
+
+            if (progress) {
+
+                progress.style.width =
+                    (
+                        (currentIndex + 1) /
+                        total *
+                        100
+                    ) + "%";
+
+            }
+
+        }
+
+
+        function goNext() {
+
+            currentIndex =
+                (
+                    currentIndex + 1
+                ) % cards.length;
+
+            updateCarousel();
+
+        }
+
+
+        function goPrevious() {
+
+            currentIndex =
+                (
+                    currentIndex - 1 +
+                    cards.length
+                ) % cards.length;
+
+            updateCarousel();
+
+        }
+
+
+        next.addEventListener(
+            "click",
+            goNext
+        );
+
+
+        previous.addEventListener(
+            "click",
+            goPrevious
+        );
+
+
+        cards.forEach(function (card) {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        card.classList.contains(
+                            "is-left"
+                        )
+                    ) {
+
+                        goPrevious();
+
+                    }
+
+                    else if (
+                        card.classList.contains(
+                            "is-right"
+                        )
+                    ) {
+
+                        goNext();
+
+                    }
+
+                }
+            );
+
+        });
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "ArrowRight"
+                ) {
+
+                    goNext();
+
+                }
+
+                else if (
+                    event.key === "ArrowLeft"
+                ) {
+
+                    goPrevious();
+
+                }
+
+            }
+        );
+
+
+        updateCarousel();
+
+    }
+
+
+
+    /* =========================================================
+       POPUP ELEMENTS
+    ========================================================= */
+
+    const overlay =
+        document.getElementById(
+            "submenuContentOverlay"
+        );
+
+    const closeButton =
+        document.getElementById(
+            "submenuContentClose"
+        );
+
+    const heading =
+        document.getElementById(
+            "submenuContentHeading"
+        );
+
+    const paragraph =
+        document.getElementById(
+            "submenuContentParagraph"
+        );
+
+    const image =
+        document.getElementById(
+            "submenuContentImage"
+        );
+
+    const documentBox =
+        document.getElementById(
+            "submenuContentDocument"
+        );
+
+
+    if (
+        !overlay ||
+        !closeButton ||
+        !heading ||
+        !paragraph ||
+        !image ||
+        !documentBox
+    ) {
+
+        console.error(
+            "Popup elements are missing."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =========================================================
+       ESCAPE HTML
+       Prevent document names from being interpreted as HTML
+    ========================================================= */
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            value;
+
+        return div.innerHTML;
+
+    }
+
+
+
+    /* =========================================================
+       OPEN CONTENT POPUP
+       
+       Supports:
+       - Navbar content
+       - Submenu content
+       - Multiple documents
+    ========================================================= */
+
+    function openContentPopup(dataItem) {
+
+        if (!dataItem) {
+            return;
+        }
+
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        heading.textContent =
+            dataItem.dataset.heading || "";
+
+
+
+        /* =====================================================
+           PARAGRAPH
+        ===================================================== */
+
+        paragraph.textContent =
+            dataItem.dataset.paragraph || "";
+
+
+
+        /* =====================================================
+           IMAGE
+        ===================================================== */
+
+        const imageUrl =
+            dataItem.dataset.image || "";
+
+
+        if (
+            imageUrl &&
+            imageUrl.trim() !== ""
+        ) {
+
+            image.src =
+                imageUrl;
+
+            image.alt =
+                dataItem.dataset.heading || "";
+
+            image.style.display =
+                "block";
+
+        }
+
+        else {
+
+            image.removeAttribute(
+                "src"
+            );
+
+            image.style.display =
+                "none";
+
+        }
+
+
+
+        /* =====================================================
+           GET ALL DOCUMENTS
+           
+           Navbar:
+           .navbar-document
+
+           Submenu:
+           .submenu-document
+        ===================================================== */
+
+        const documents =
+            dataItem.querySelectorAll(
+                ".navbar-document, .submenu-document"
+            );
+
+
+
+        /* =====================================================
+           CLEAR OLD DOCUMENTS
+        ===================================================== */
+
+        documentBox.innerHTML =
+            "";
+
+
+
+        /* =====================================================
+           NO DOCUMENTS
+        ===================================================== */
+
+        if (!documents.length) {
+
+            documentBox.style.display =
+                "none";
+
+        }
+
+        else {
+
+            documentBox.style.display =
+                "flex";
+
+
+
+            /* =================================================
+               DOCUMENT HEADER
+            ================================================= */
+
+            const documentTitle =
+                document.createElement(
+                    "div"
+                );
+
+
+            documentTitle.className =
+                "documents-popup-title";
+
+
+            
+
+
+            documentBox.appendChild(
+                documentTitle
+            );
+
+
+
+            /* =================================================
+               CREATE ALL DOCUMENT LINKS
+            ================================================= */
+
+            documents.forEach(
+                function (doc) {
+
+                    const name =
+                        doc.dataset.documentName ||
+                        "View Document";
+
+
+                    const url =
+                        doc.dataset.documentUrl ||
+                        "";
+
+
+                    if (!url) {
+                        return;
+                    }
+
+
+            const link =
+                document.createElement("a");
+
+            link.href =
+                url;
+
+            link.target =
+                "_blank";
+
+            link.rel =
+                "noopener noreferrer";
+
+            link.className =
+                "submenu-document-button dynamic-document-link";
+
+            link.innerHTML = `
+
+                <span class="document-file-name">
+
+                    <i class="fas fa-file-lines"></i>
+
+                    ${escapeHtml(name)}
+
+                </span>
+
+                <span class="document-view-icon">
+
+                    <span>
+                        View Document
+                    </span>
+
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+
+                </span>
+
+            `;
+
+            documentBox.appendChild(link);
+                            }
+                        );
+
+                    }
+
+
+
+                    /* =====================================================
+                    OPEN POPUP
+                    ===================================================== */
+
+                    overlay.classList.add(
+                        "active"
+                    );
+
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                }
+
+
+
+                /* =========================================================
+                SUBMENU CONTENT
+                ========================================================= */
+
+                const submenuItems =
+                    document.querySelectorAll(
+                        ".submenu-content-trigger"
+                    );
+
+                const submenuData =
+                    document.querySelectorAll(
+                        ".submenu-data-item"
+                    );
+
+
+                submenuItems.forEach(
+                    function (item) {
+
+                        item.addEventListener(
+                            "click",
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+
+                                const submenuId =
+                                    this.dataset.submenuId;
+
+
+                                let selectedItem =
+                                    null;
+
+
+                                submenuData.forEach(
+                                    function (data) {
+
+                                        if (
+                                            data.dataset.id ===
+                                            submenuId
+                                        ) {
+
+                                            selectedItem =
+                                                data;
+
+                                        }
+
+                                    }
+                                );
+
+
+                                if (!selectedItem) {
+
+                                    console.error(
+                                        "Submenu content not found:",
+                                        submenuId
+                                    );
+
+                                    return;
+
+                                }
+
+
+                                openContentPopup(
+                                    selectedItem
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+
+                /* =========================================================
+                NAVBAR CONTENT
+                ========================================================= */
+
+                const navbarItems =
+                    document.querySelectorAll(
+                        ".navbar-content-trigger"
+                    );
+
+                const navbarData =
+                    document.querySelectorAll(
+                        ".navbar-data-item"
+                    );
+
+
+                navbarItems.forEach(
+                    function (item) {
+
+                        item.addEventListener(
+                            "click",
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+
+                                const navbarId =
+                                    this.dataset.navbarId;
+
+
+                                let selectedItem =
+                                    null;
+
+
+                                navbarData.forEach(
+                                    function (data) {
+
+                                        if (
+                                            data.dataset.id ===
+                                            navbarId
+                                        ) {
+
+                                            selectedItem =
+                                                data;
+
+                                        }
+
+                                    }
+                                );
+
+
+                                if (!selectedItem) {
+
+                                    console.error(
+                                        "Navbar content not found:",
+                                        navbarId
+                                    );
+
+                                    return;
+
+                                }
+
+
+                                openContentPopup(
+                                    selectedItem
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+
+                /* =========================================================
+                CLOSE BUTTON
+                ========================================================= */
+
+                closeButton.addEventListener(
+                    "click",
+                    function () {
+
+                        overlay.classList.remove(
+                            "active"
+                        );
+
+                        document.body.style.overflow =
+                            "";
+
+                    }
+                );
+
+
+
+                /* =========================================================
+                BACKDROP
+                ========================================================= */
+
+                const backdrop =
+                    document.querySelector(
+                        ".submenu-content-backdrop"
+                    );
+
+
+                if (backdrop) {
+
+                    backdrop.addEventListener(
+                        "click",
+                        function () {
+
+                            overlay.classList.remove(
+                                "active"
+                            );
+
+                            document.body.style.overflow =
+                                "";
+
+                        }
+                    );
+
+                }
+
+
+
+                /* =========================================================
+                ESC KEY
+                ========================================================= */
+
+                document.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Escape" &&
+                            overlay.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            overlay.classList.remove(
+                                "active"
+                            );
+
+                            document.body.style.overflow =
+                                "";
+
+                        }
+
+                    }
+                );
+
+            });
+</script>
+
+
+
 
 </body>
+
 </html>

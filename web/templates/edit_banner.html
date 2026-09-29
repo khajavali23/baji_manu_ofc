@@ -71,31 +71,214 @@ Update your existing website banner
 
 
                     <!-- TITLE -->
+<!-- =====================================
+     BANNER BUTTONS
+====================================== -->
 
-                    <div class="form-group">
+<div class="form-group">
 
-                        <label for="banner-title">
-                            Banner Title
-                        </label>
+    <label>
+        Banner Buttons
+    </label>
 
-                        <div class="input-wrapper">
+    <small class="input-help">
+        <i class="fas fa-circle-info"></i>
+        Manage the buttons displayed on this banner.
+    </small>
 
-                            <span class="input-icon">
-                                <i class="fas fa-heading"></i>
-                            </span>
+</div>
 
-                            <input
-                                type="text"
-                                id="banner-title"
-                                name="title"
-                                class="dashboard-input"
-                                value="{{ banner.title }}"
-                                required
-                            >
 
-                        </div>
+<div id="banner-buttons-container">
 
-                    </div>
+    {% for button in banner.buttons.all %}
+
+    <div class="banner-button-row">
+
+        <div class="form-group">
+
+            <label>
+                Button Text
+            </label>
+
+            <input
+                type="text"
+                name="button_texts[]"
+                class="dashboard-input"
+                value="{{ button.text }}"
+                placeholder="Example: Learn More"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Button Type
+            </label>
+
+            <select
+                name="button_types[]"
+                class="dashboard-input"
+            >
+
+                <option
+                    value="url"
+                    {% if button.button_type == "url" %}selected{% endif %}
+                >
+                    External URL
+                </option>
+
+                <option
+                    value="page"
+                    {% if button.button_type == "page" %}selected{% endif %}
+                >
+                    Website Page
+                </option>
+
+                <option
+                    value="email"
+                    {% if button.button_type == "email" %}selected{% endif %}
+                >
+                    Email
+                </option>
+
+                <option
+                    value="document"
+                    {% if button.button_type == "document" %}selected{% endif %}
+                >
+                    Document
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Destination
+            </label>
+
+            <input
+                type="text"
+                name="button_values[]"
+                class="dashboard-input"
+                value="{% if button.button_type == 'url' %}{{ button.url }}{% elif button.button_type == 'page' %}{{ button.page_url }}{% elif button.button_type == 'email' %}{{ button.email }}{% endif %}"
+                placeholder="Enter destination"
+            >
+
+        </div>
+
+
+       <input
+    type="hidden"
+    name="button_ids[]"
+    value="{{ button.id }}"
+>
+
+<a
+    href="{% url 'delete_banner_button' button.id %}"
+    class="btn-remove-banner-button"
+    onclick="return confirm('Are you sure you want to delete this button?');"
+>
+    <span class="remove-button-icon">
+        <i class="fas fa-trash-can"></i>
+    </span>
+
+    <span class="remove-button-text">
+        Remove Button
+    </span>
+</a>
+
+    </div>
+
+    {% empty %}
+
+    <!-- First empty button -->
+
+    <div class="banner-button-row">
+
+        <div class="form-group">
+
+            <label>
+                Button Text
+            </label>
+
+            <input
+                type="text"
+                name="button_texts[]"
+                class="dashboard-input"
+                placeholder="Example: Learn More"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Button Type
+            </label>
+
+            <select
+                name="button_types[]"
+                class="dashboard-input"
+            >
+
+                <option value="url">
+                    External URL
+                </option>
+
+                <option value="page">
+                    Website Page
+                </option>
+
+                <option value="email">
+                    Email
+                </option>
+
+                <option value="document">
+                    Document
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Destination
+            </label>
+
+            <input
+                type="text"
+                name="button_values[]"
+                class="dashboard-input"
+                placeholder="Enter destination"
+            >
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+<button
+    type="button"
+    id="add-banner-button"
+    class="btn-save"
+>
+    <i class="fas fa-plus"></i>
+    Add Another Button
+</button>
 
 
                     <!-- CURRENT IMAGE -->
@@ -126,6 +309,7 @@ Update your existing website banner
                     </div>
 
                     {% endif %}
+                    
 
 
                     <!-- NEW IMAGE -->
@@ -167,6 +351,70 @@ Update your existing website banner
                         >{{ banner.description }}</textarea>
 
                     </div>
+                    <!-- BUTTON TEXT -->
+
+<div class="form-group">
+
+    <label for="banner-button-text">
+        Button Text
+    </label>
+
+    <div class="input-wrapper">
+
+        <span class="input-icon">
+            <i class="fas fa-mouse-pointer"></i>
+        </span>
+
+        <input
+            type="text"
+            id="banner-button-text"
+            name="button_text"
+            class="dashboard-input"
+            value="{{ banner.button_text|default:'' }}"
+            placeholder="Example: Contact Us"
+        >
+
+    </div>
+
+    <small class="input-help">
+        <i class="fas fa-circle-info"></i>
+        Enter the text that should appear on the banner button.
+    </small>
+
+</div>
+
+
+<!-- BUTTON EMAIL -->
+
+<div class="form-group">
+
+    <label for="banner-button-email">
+        Button Email
+    </label>
+
+    <div class="input-wrapper">
+
+        <span class="input-icon">
+            <i class="fas fa-envelope"></i>
+        </span>
+
+        <input
+            type="email"
+            id="banner-button-email"
+            name="button_email"
+            class="dashboard-input"
+            value="{{ banner.button_email|default:'' }}"
+            placeholder="Example: info@example.com"
+        >
+
+    </div>
+
+    <small class="input-help">
+        <i class="fas fa-circle-info"></i>
+        When visitors click the button, their email application will open.
+    </small>
+
+</div>
 
 
                     <!-- ACTIONS -->
@@ -206,5 +454,150 @@ Update your existing website banner
     </div>
 
 </main>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const container =
+        document.getElementById(
+            "banner-buttons-container"
+        );
+
+    const addButton =
+        document.getElementById(
+            "add-banner-button"
+        );
+
+
+    if (!container || !addButton) {
+        return;
+    }
+
+
+    addButton.addEventListener(
+        "click",
+        function () {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "banner-button-row";
+
+            row.innerHTML = `
+
+                <div class="form-group">
+
+                    <label>
+                        Button Text
+                    </label>
+
+                    <input
+                        type="text"
+                        name="button_texts[]"
+                        class="dashboard-input"
+                        placeholder="Example: Learn More"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Button Type
+                    </label>
+
+                    <select
+                        name="button_types[]"
+                        class="dashboard-input"
+                    >
+
+                        <option value="url">
+                            External URL
+                        </option>
+
+                        <option value="page">
+                            Website Page
+                        </option>
+
+                        <option value="email">
+                            Email
+                        </option>
+
+                        <option value="document">
+                            Document
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        name="button_values[]"
+                        class="dashboard-input"
+                        placeholder="Enter destination"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn-remove-banner-button"
+                >
+
+                    <i class="fas fa-trash"></i>
+                    Remove
+
+                </button>
+
+            `;
+
+            container.appendChild(row);
+
+        }
+    );
+
+
+    container.addEventListener(
+        "click",
+        function (event) {
+
+            const removeButton =
+                event.target.closest(
+                    ".btn-remove-banner-button"
+                );
+
+
+            if (!removeButton) {
+                return;
+            }
+
+
+            const row =
+                removeButton.closest(
+                    ".banner-button-row"
+                );
+
+
+            if (row) {
+                row.remove();
+            }
+
+        }
+    );
+
+});
+
+</script>
 
 {% endblock %}
